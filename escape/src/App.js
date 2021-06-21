@@ -7,6 +7,10 @@ import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
 import AboutUs from './aboutUs.js';
 import Navbar from './NavBar.js';
 import Home from './home.js'
+import React from 'react';
+import Post from './Post.js';
+
+
 
 function App() {
   return (
@@ -15,9 +19,15 @@ function App() {
       <Route path="/" exact component={Home} />
       <Route path="/about" component={AboutUs} />
       <Route path="/store" component={Store} />
-    <Footer />
+      <Route path="/Post" component={Post} />
+      <Footer />
     </Router>
   );
 }
 
 export default App;
+
+
+
+
+
