@@ -5,7 +5,7 @@ const database = "escape";
 
 const connection = mysql.createConnection({
   user: "root",
-  password: "000000",
+  password: "",
 });
 
 const db = Promise.promisifyAll(connection, { multiArgs: true });
@@ -18,18 +18,22 @@ db.connectAsync()
   .then(() => db.queryAsync(`USE ${database}`))
   .then(() => createTables(db));
 
-// var postTodo = (params, cb) => {
-//   db.query("INSERT INTO todos (name,todo) VALUES (?,?)", (err, result) => {
-//     cb(err, result);
-//   });
-// };
-// var postUser = (params, cb) => {
-//   db.query("INSERT INTO users (name,password) VALUES (?,?)", (err, result) => {
-//     cb(err, result);
-//   });
-// };
 
-// module.exports = {
-//   postTodo,
-  
-// };
+
+const postRent = function (data, val, callback) {
+  let query = "INSERT INTO equipments (category,name, description, etat,image,priceRent,priceSell,toRent,toSell,status,isRented,isSold,favorite, renter) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+  db.query(query, [data.category, data.title, data.description, data.condition, val, data.price, 0, true, null, false, false, false, false, null], callback)
+};
+
+const postSell = function (data, val, callback) {
+  let query = "INSERT INTO equipments (category,name, description, etat,image,priceSell,priceRent,toRent,toSell,status,isRented,isSold,favorite, renter) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+  db.query(query, [data.category, data.title, data.description, data.condition, val, data.price, 0, null, true, false, false, false, false, null], callback)
+};
+
+
+module.exports = {
+  postRent,
+  postSell
+
+};
+
