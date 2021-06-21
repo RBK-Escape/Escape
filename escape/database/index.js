@@ -5,7 +5,7 @@ const database = "escape";
 
 const connection = mysql.createConnection({
   user: "root",
-  password: "",
+  password: "password",
 });
 
 const db = Promise.promisifyAll(connection, { multiArgs: true });
@@ -19,6 +19,15 @@ db.connectAsync()
   .then(() => createTables(db));
 
 
+var homeProducts = (cb) => {
+  db.query('SELECT * FROM equipments', (err, result) => {
+    if(err){
+      cb(err, null);
+    } else {
+      cb(null, result);
+    }
+  })
+}
 
 const postRent = function (data, val, callback) {
   let query = "INSERT INTO equipments (category,name, description, etat,image,priceRent,priceSell,toRent,toSell,status,isRented,isSold,favorite, renter) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
@@ -32,8 +41,14 @@ const postSell = function (data, val, callback) {
 
 
 module.exports = {
+  db,
+  homeProducts,
   postRent,
   postSell
+}
 
-};
+
+
+
+
 
