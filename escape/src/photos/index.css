@@ -1,0 +1,30 @@
+nav {
+    width: 100%;
+    margin-left: 50px;
+    margin-top: 0px;
+    position: relative;
+    text-align: left;
+    height: 60px;
+    background-color: green;
+  }
+  .navItem {
+      font-size: 18px;
+      font-weight: bold;
+      background: brown;
+      height: auto;
+      text-align: center;
+      text-transform: uppercase;
+      border-radius: 3%;
+      cursor: pointer;
+      display: inline-block;
+  }
+  .navList {
+    width: 100%;
+    float: right;
+    margin-top: 0px;
+  }
+  .logo {
+      height: 85px;
+      width: 210px;
+      margin-left: 0px;
+    }

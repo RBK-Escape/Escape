@@ -5,7 +5,7 @@ const database = "escape";
 
 const connection = mysql.createConnection({
   user: "root",
-  password: "000000",
+  password: "password",
 });
 
 const db = Promise.promisifyAll(connection, { multiArgs: true });
@@ -33,3 +33,18 @@ db.connectAsync()
 //   postTodo,
   
 // };
+
+var homeProducts = (cb) => {
+  db.query('SELECT * FROM equipments', (err, result) => {
+    if(err){
+      cb(err, null);
+    } else {
+      cb(null, result);
+    }
+  })
+}
+
+module.exports = {
+  db,
+  homeProducts,
+}
