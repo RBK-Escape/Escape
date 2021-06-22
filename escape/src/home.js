@@ -28,6 +28,8 @@ import { NavLink, Link } from "react-router-dom";
            <button>
            <Link to="/blog">Blogs</Link>
            </button>
+           
+            
         </div>
     )
 }

@@ -15,14 +15,14 @@ module.exports = (db) => {
       image VARCHAR(900),
       phoneNumber INT,
       adress VARCHAR(255),
-      email VARCHAR(255),
+      email VARCHAR(255) UNIQUE,
       pocket INT 
     )`
     )
     .then(() => {
       return db
-      .queryAsync(
-        ` 
+        .queryAsync(
+          ` 
             CREATE TABLE IF NOT EXISTS equipments (
             id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
             category VARCHAR(255),
@@ -30,20 +30,20 @@ module.exports = (db) => {
             name VARCHAR(255),
             description VARCHAR(1000),
             etat VARCHAR(255),
-            priceRent INT ,
-            priceSell INT ,
+            priceRent INT DEFAULT null,
+            priceSell INT DEFAULT null,
             toRent BOOLEAN ,
             toSell BOOLEAN ,
-            status BOOLEAN DEFAULT false,
+            status VARCHAR(255) DEFAULT 'pending',
             isRented BOOLEAN ,
             isSold BOOLEAN ,
             favorite BOOLEAN DEFAULT false,
             image VARCHAR(1000),
-            FOREIGN KEY (userId) REFERENCES users (userID),
-            renter INT 
+            renter INT ,
+            FOREIGN KEY (userId) REFERENCES users (userID)
             )
         `
-      );
+        );
     })
     .then(() => {
       return db
@@ -65,3 +65,4 @@ module.exports = (db) => {
       console.log(err);
     });
 };
+
