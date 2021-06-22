@@ -6,16 +6,17 @@ function SignUp() {
   const [password, setpassword] = useState("");
   const [email, setemail] = useState("");
   const [phone, setphone] = useState(null);
-  const [address, setaddress] = useState("");
+  const [adress, setadress] = useState("");
 
-  const signup = () => {
+  const signup = (e) => {
+    e.preventDefault()
     axios
       .post("http://localhost:3001/signup", {
         fullname,
         password,
         email,
         phone,
-        address,
+        adress,
       })
       .then((res) => {
         console.log(res);
@@ -67,7 +68,7 @@ function SignUp() {
         className="form-control" 
         placeholder="Address" 
         onChange ={ (e) => {
-        setaddress(e.target.value)
+        setadress(e.target.value)
         }}
         />
       </div>

@@ -15,7 +15,7 @@ module.exports = (db) => {
       image VARCHAR(900),
       phoneNumber INT,
       adress VARCHAR(255),
-      email VARCHAR(255),
+      email VARCHAR(255) UNIQUE,
       pocket INT 
     )`
     )
@@ -49,3 +49,4 @@ module.exports = (db) => {
       console.log(err);
     });
 };
+

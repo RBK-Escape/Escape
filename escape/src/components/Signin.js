@@ -6,16 +6,16 @@ function Signin() {
 
     const [email, setemail] = useState("");
     const [password, setpassword] = useState("");
-    const [loginstatus, setLoginstatus] = useState(false)
 
-    const signin = () => {
+    const signin = (e) => {
+      e.preventDefault()
         axios
-          .post("http://localhost:3001/signup", {
+          .post("http://localhost:3001/signin", {
             email,
             password
           })
           .then((res) => {
-            console.log(res);
+            console.log(res.data);
           });
       };
 

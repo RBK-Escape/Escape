@@ -91,66 +91,48 @@ app.get('/homeProducts', (req,res) =>{
 ///////////////////auth////////////////////
 
 
-app.post('/signin', async (req, res) => {
-  try {
-    let {email, password} = req.body
-    let user = await db.query("SELECT * FROM users WHERE email = ? ;", email)
-    if (!user) {
-      throw "User doesn't exist"
+app.post('/signup', (req,res) => {
+
+  db.selectUserByEmail(req.body , (err,result) => {
+    if(err) res.send({err:err})
+    if(result.length > 0){
+      throw "user already exists"
+    }})
+
+  bcrypt.hash(req.body.password, 10 , (err,hash) => {
+    if(err){
+      console.log(err)
     }
-    let isMatch = bcrypt.compareSync(password, user.password);
-    if (!isMatch) {
-      throw "Wrong password"
-    }
-    let token = jwt.sign(
-      {
-        email: user.email,
-        id: user.userID
-      },
-      "jwtSecret",
-      {
-        expiresIn: "1h"
-      }
-    );
-    res.send({
-      user,
-      token: token
+    db.createUser(req.body,hash, (err,result) => {
+      if(err) console.log(err)
+      res.send(result)
     })
-  }
-  catch(error) {
-    res.send(error)
-  }
+  });
 })
 
-app.post('/signup', async (req, res) => {
-  try {
-    let { fullname , email, password , phone , address } = req.body
-    let existingUser = await db.query("SELECT * FROM users WHERE email = ? ;", email)
-    if (existingUser) {
-      throw "User already exists"
+
+app.post('/signin', (req,res) => {
+  db.selectUserByEmail(req.body , (err,result) => {
+    if(err) res.send({err:err})
+    if(result.length > 0){
+      bcrypt.compare(req.body.password ,result[0].password ,(err,response) => {
+        if(err) res.send(err)
+        if(response){
+          const id = result[0].id
+          const token =jwt.sign({id} , "jwtSecret" ,{
+            expiresIn: 6000
+          })
+          res.json({ token , result })
+        }else {
+          res.send({message : "Login failed"})
+        }
+      })
+    } else {
+      res.send({message : "User doesn't exist"})
     }
-    let newPassword = bcrypt.hashSync(password, bcrypt.genSaltSync(10), null);
-    let user = await db.query("INSERT INTO users (fullName,password,phoneNumber,adress,email) VALUES (?,?,?,?,?);",[fullname,password,phone,address,email])
-    
-    let token = jwt.sign(
-      {
-        email: user.email,
-        id: user.userID
-      },
-      "jwtSecret",
-      {
-        expiresIn: "1h"
-      }
-    );
-    res.send({
-      user,
-      token: token
-    })
-  }
-  catch(error) {
-    res.send(error)
-  }
+  })
 })
+
 
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`);

@@ -39,14 +39,24 @@ const postSell = function (data, val, callback) {
   db.query(query, [data.category, data.title, data.description, data.condition, val, data.price, 0, null, true, false, false, false, false, null], callback)
 };
 
+const createUser = function (data,hachedPW,callback){
+  let query = "INSERT into users (fullName,password,phoneNumber,adress,email) VALUES (?,?,?,?,?)";
+  db.query(query,[data.fullname,hachedPW,data.phone,data.adress,data.email] ,callback )
+}
 
+const selectUserByEmail = function (data,callback){
+  let query = "SELECT * FROM users WHERE email =  ? ";
+  db.query(query,[data.email],callback)
+}
 
 
 module.exports = {
   db,
   homeProducts,
   postRent,
-  postSell
+  postSell,
+  createUser,
+  selectUserByEmail
 }
 
 

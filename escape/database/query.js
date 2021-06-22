@@ -14,11 +14,13 @@ const getEquipmentsToRent = () => {
 const getEquipmentsToBuy = () => {
     return db.queryAsync('select * from equipments where toSell=1')
 }
+
+
 /////////////////////////////////////////////////////////////
 
 
 module.exports= {
     getAllEquipments,
     getEquipmentsToRent,
-    getEquipmentsToBuy,
+    getEquipmentsToBuy
 }
