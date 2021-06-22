@@ -9,6 +9,7 @@ import Navbar from './NavBar.js';
 import Home from './home.js'
 import React from 'react';
 import Post from './Post.js';
+import Account from './Account.js';
 
 
 
@@ -20,6 +21,7 @@ function App() {
       <Route path="/about" component={AboutUs} />
       <Route path="/store" component={Store} />
       <Route path="/Post" component={Post} />
+      <Route path="/account" component={Account} />
       <Footer />
     </Router>
   );
