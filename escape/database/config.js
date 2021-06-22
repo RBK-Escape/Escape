@@ -40,6 +40,7 @@ module.exports = (db) => {
             favorite BOOLEAN DEFAULT false,
             image VARCHAR(1000),
             FOREIGN KEY (userId) REFERENCES users (userID),
+            inCart BOOLEAN DEFAULT false,
             renter INT 
             )
         `

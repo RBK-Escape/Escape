@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 
 const Search = () => {
   const [searchTerm, setSearchTerm] = useState("");
+  // eslint-disable-next-line
   const [products, setProducts] = useState([]);
   useEffect(() => {
     axios
@@ -26,6 +27,7 @@ const Search = () => {
       />
       <div>
         {products
+        // eslint-disable-next-line
           .filter((products)=> {
               if(products.toLowerCase().includes(searchTerm.toLowerCase()))
               return products
