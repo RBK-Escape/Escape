@@ -33,7 +33,7 @@ function Post() {
             description: description, condition: condition, price: price, sell: sell, rent: rent
         }).then(result =>
 
-            console.log("hellooooooo", result.data))
+            console.log(result.data))
 
 
     }
@@ -42,7 +42,7 @@ function Post() {
         const file = e.target.files[0]
         previewImageFile(file)
     }
-    
+
     const previewImageFile = (file) => {
         const reader = new FileReader()
         reader.readAsDataURL(file);

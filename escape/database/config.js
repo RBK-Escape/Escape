@@ -21,8 +21,8 @@ module.exports = (db) => {
     )
     .then(() => {
       return db
-      .queryAsync(
-        ` 
+        .queryAsync(
+          ` 
             CREATE TABLE IF NOT EXISTS equipments (
             id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
             category VARCHAR(255),
@@ -30,11 +30,11 @@ module.exports = (db) => {
             name VARCHAR(255),
             description VARCHAR(1000),
             etat VARCHAR(255),
-            priceRent INT ,
-            priceSell INT ,
+            priceRent INT DEFAULT null,
+            priceSell INT DEFAULT null,
             toRent BOOLEAN ,
             toSell BOOLEAN ,
-            status BOOLEAN DEFAULT false,
+            status VARCHAR(255) DEFAULT 'pending',
             isRented BOOLEAN ,
             isSold BOOLEAN ,
             favorite BOOLEAN DEFAULT false,
@@ -43,7 +43,7 @@ module.exports = (db) => {
             FOREIGN KEY (userId) REFERENCES users (userID)
             )
         `
-      );
+        );
     })
     .error((err) => {
       console.log(err);
