@@ -9,6 +9,7 @@ import Navbar from './NavBar.js';
 import Home from './home.js'
 import React from 'react';
 import Post from './Post.js';
+import Admin from './Admin.js';
 
 
 
@@ -20,6 +21,7 @@ function App() {
       <Route path="/about" component={AboutUs} />
       <Route path="/store" component={Store} />
       <Route path="/Post" component={Post} />
+      <Route path="/Admin" component={Admin} />
       <Footer />
     </Router>
   );
