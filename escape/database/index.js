@@ -1,4 +1,4 @@
-const mysql = require("mysql");
+const mysql = require("mysql2");
 const createTables = require("./config");
 const Promise = require("bluebird");
 const database = "escape";
@@ -39,6 +39,16 @@ const postSell = function (data, val, callback) {
   db.query(query, [data.category, data.title, data.description, data.condition, val, data.price, null, null, true, "pending", false, false, false, null], callback)
 };
 
+const createUser = function (data,hachedPW,callback){
+  let query = "INSERT into users (fullName,password,phoneNumber,adress,email) VALUES (?,?,?,?,?)";
+  db.query(query,[data.fullname,hachedPW,data.phone,data.adress,data.email] ,callback )
+}
+
+const selectUserByEmail = function (data,callback){
+  let query = "SELECT * FROM users WHERE email =  ? ";
+  db.query(query,[data.email],callback)
+}
+
 
 const getDataAdmin = function (callback) {
   let query = "select id,userId, name, description, etat, image, status, toRent, toSell,priceSell,priceRent from equipments where status = 0;"
@@ -63,7 +73,9 @@ module.exports = {
   postSell,
   getDataAdmin,
   acceptPost,
-  deletePost
+  deletePost,
+  createUser,
+  selectUserByEmail
 }
 
 

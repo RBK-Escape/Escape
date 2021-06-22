@@ -15,7 +15,7 @@ module.exports = (db) => {
       image VARCHAR(900),
       phoneNumber INT,
       adress VARCHAR(255),
-      email VARCHAR(255),
+      email VARCHAR(255) UNIQUE,
       pocket INT 
     )`
     )
@@ -39,8 +39,8 @@ module.exports = (db) => {
             isSold BOOLEAN ,
             favorite BOOLEAN DEFAULT false,
             image VARCHAR(1000),
-            FOREIGN KEY (userId) REFERENCES users (userID),
-            renter INT 
+            renter INT ,
+            FOREIGN KEY (userId) REFERENCES users (userID)
             )
         `
         );
@@ -49,3 +49,4 @@ module.exports = (db) => {
       console.log(err);
     });
 };
+
