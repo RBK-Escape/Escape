@@ -12,34 +12,56 @@ code {
     monospace;
 } */
 
-
-nav {
+*{
+  box-sizing: border-box;
+}
+body {
+  margin: 0;
+  padding: 0;
+}
+.navbar{
   width: 100%;
-  margin-left: 50px;
+  margin-left: 0px;
   margin-top: 0px;
   position: relative;
   text-align: left;
-  height: 60px;
-  background-color: green;
+  height: 100px;
+  background-color: black;
 }
-.navItem {
-    font-size: 18px;
-    font-weight: bold;
-    background: brown;
-    height: auto;
-    text-align: center;
-    text-transform: uppercase;
-    border-radius: 3%;
-    cursor: pointer;
-    display: inline-block;
-}
-.navList {
+.title{
   width: 100%;
   float: right;
   margin-top: 0px;
 }
-.logo {
-    height: 85px;
-    width: 210px;
-    margin-left: 0px;
+.navbarLinks{
+  margin : 0;
+  padding: 0;
+  display: flex;
+}
+.navbarLinks .navItem{
+  display: inline-block;
+  padding: 15px 40px;
+  margin-top: 0px;
+  position: relative;
+  color: black;
+  text-decoration: none;
+  font-size: 18px;
+  font-weight: bold;
+  background: rgb(255, 254, 254);
+  height: auto;
+  text-align: right;
+  text-transform: uppercase;
+  border-radius: 3%;
+  cursor: pointer;
+  box-shadow: cornsilk;
+}
+.logo{
+  margin-top: -4px;
+  width: 190px;
+  height: 100px;
+}
+.search{
+    margin-top: 20px;
+    height: 35px;
+    width: 300px;
   }

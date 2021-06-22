@@ -75,8 +75,8 @@ app.get('/api/toBuy', (req, res) => {
 ////////////////////////////////////////////////////////////
 
 ////From bechir
-app.get('/homeProducts', (req,res) =>{
-  db.homeProducts( function(err,result){
+app.get('/api/searchProducts', (req,res) =>{
+  db.searchProducts( function(err,result){
     if(err){
       res.send(err)
     } else {
@@ -84,6 +84,26 @@ app.get('/homeProducts', (req,res) =>{
     }
   })
 })
+
+app.get('/api/homeProducts', (req,res) =>{
+ db.homeProducts( function(err,result){
+    if(err){
+      res.send(err)
+    } else {
+      res.json(result)
+    }
+  })
+})
+
+app.post("/postBlog", (req, res) => {
+  db.postItem([req.body.place, req.body.image, req.body.experience], (err, result) => {
+    if (err) {
+      console.log(err);
+    } else {
+      res.json(result);
+    }
+  });
+});
 
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`);
