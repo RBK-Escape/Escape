@@ -1,18 +1,34 @@
-import Signup from './components/Signup'
-import Signin from './components/Signin';
-import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
+import Store from './store.js';
+import './App.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import Footer from './Footer.js';
+import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
+import AboutUs from './aboutUs.js';
+import Navbar from './NavBar.js';
+import Home from './home.js'
+import React from 'react';
+import Post from './Post.js';
+
+
 
 
 function App() {
   return (
-    <div className="App">
-    <Signin />
-       <Signup />
-   
-      
-    </div>
+    <Router>
+      <Navbar />
+      <Route path="/" exact component={Home} />
+      <Route path="/about" component={AboutUs} />
+      <Route path="/store" component={Store} />
+      <Route path="/Post" component={Post} />
+      <Footer />
+    </Router>
   );
 }
 
 export default App;
+
+
+
+
+
