@@ -5,7 +5,7 @@ const database = "escape";
 
 const connection = mysql.createConnection({
   user: "root",
-  password: "000000",
+  password: "password",
 });
 
 const db = Promise.promisifyAll(connection, { multiArgs: true });

@@ -12,6 +12,7 @@ function Post() {
     const [description, setDescription] = useState("")
     const [condition, setCondition] = useState("")
     const [price, setPrice] = useState("")
+    // eslint-disable-next-line
     const [image, setImage] = useState("")  // fileinputstate
     const [sell, setSell] = useState("")
     const [rent, setRent] = useState("")

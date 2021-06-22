@@ -1,6 +1,6 @@
 const express = require("express");
 const db = require("../database");
-const { getAllEquipments, getEquipmentsToRent, getEquipmentsToBuy } = require('../database/query.js')
+const {getAllEquipments, getEquipmentsToRent, getEquipmentsToBuy, getEquipmentByPriceInc, updateInCartValue, getElementInCart} = require('../database/query.js')
 const app = express();
 const port = process.env.PORT || 3001;
 var cors = require('cors')
@@ -59,23 +59,63 @@ app.post("/api/upload", async (req, res) => {
 ///////////////////////////////////////////////////////////
 // fetch element for the store.js component
 //////////////////////////////////////////////////////////
+
+//get all equipmenets
 app.get('/api/allEquipments', (req, res) => {
   getAllEquipments().then((data) => {
     res.send(data[0])
   })
 })
 
+//get equipToBeRent
 app.get('/api/toRent', (req, res) => {
   getEquipmentsToRent().then((data) => {
     res.send(data[0])
   })
 })
 
+//get equipToBesold
 app.get('/api/toBuy', (req, res) => {
   getEquipmentsToBuy().then((data) => {
     res.send(data[0])
-  })
+  }).catch((err) => {console.log(err);})
 })
+
+//filter by price
+app.get('/api/select/:price', (req, res) => {
+  let price = req.params.price;
+  getEquipmentByPriceInc(price).then((data) => {
+    if(price === 'priceRent') {
+    res.send( data[0].filter((element) => {
+           return element.toRent
+      }))
+    } else if (price === 'priceSell') {
+      res.send( data[0].filter((element) => {
+        return element.toSell
+   }))
+    }
+  }).catch((err) => {console.log(err);})
+})
+
+//update item in cart
+app.patch('/api/catItem/:id', (req, res) => {
+  let id = req.params.id;
+  updateInCartValue(id).then(() => {
+    res.status(201).send('updated')
+  }).catch((err) => {console.log(err);})
+})
+
+//get element inCart
+
+app.get('/api/inCart', (req, res) => {
+  getElementInCart().then((result) => {
+    console.log(result[0])
+    res.status(200).send(result[0])
+  })
+  .catch((err) => { console.log(err);})
+})
+
+
 ////////////////////////////////////////////////////////////
 
 ////From bechir
