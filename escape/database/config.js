@@ -45,6 +45,22 @@ module.exports = (db) => {
         `
         );
     })
+    .then(() => {
+      return db
+      .queryAsync(
+        ` 
+            CREATE TABLE IF NOT EXISTS blogs (
+            id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+            image VARCHAR(1000),
+            place VARCHAR(255),
+            userId INT ,
+            name VARCHAR(255),
+            experience VARCHAR(2000),
+            FOREIGN KEY (userId) REFERENCES users (userID)
+            )
+        `
+      );
+    })
     .error((err) => {
       console.log(err);
     });

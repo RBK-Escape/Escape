@@ -5,7 +5,7 @@ const database = "escape";
 
 const connection = mysql.createConnection({
   user: "root",
-  password: "",
+  password: "000000",
 });
 
 const db = Promise.promisifyAll(connection, { multiArgs: true });
@@ -28,6 +28,15 @@ var homeProducts = (cb) => {
     }
   })
 }
+var searchProducts = (cb) => {
+  db.query('SELECT * FROM equipments', (err, result) => {
+    if(err){
+      cb(err, null);
+    } else {
+      cb(null, result);
+    }
+  })
+}
 
 const postRent = function (data, val, callback) {
   let query = "INSERT INTO equipments (category,name, description, etat,image,priceRent,priceSell,toRent,toSell,status,isRented,isSold,favorite, renter) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
@@ -37,6 +46,15 @@ const postRent = function (data, val, callback) {
 const postSell = function (data, val, callback) {
   let query = "INSERT INTO equipments (category,name, description, etat,image,priceSell,priceRent,toRent,toSell,status,isRented,isSold,favorite, renter) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
   db.query(query, [data.category, data.title, data.description, data.condition, val, data.price, null, null, true, "pending", false, false, false, null], callback)
+};
+const postBlog = (params, cb) => {
+  connection.query(
+    "INSERT INTO blogs(place,image,experience) VALUES(?,?,?)",
+    params,
+    (err, events) => {
+      cb(err, events);
+    }
+  );
 };
 
 const createUser = function (data,hachedPW,callback){
@@ -71,6 +89,7 @@ module.exports = {
   homeProducts,
   postRent,
   postSell,
+  searchProducts,
   getDataAdmin,
   acceptPost,
   deletePost,
