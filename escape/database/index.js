@@ -5,7 +5,7 @@ const database = "escape";
 
 const connection = mysql.createConnection({
   user: "root",
-  password: "password",
+  password: "",
 });
 
 const db = Promise.promisifyAll(connection, { multiArgs: true });
@@ -30,7 +30,7 @@ var homeProducts = (cb) => {
 }
 var searchProducts = (cb) => {
   db.query('SELECT * FROM equipments', (err, result) => {
-    if(err){
+    if (err) {
       cb(err, null);
     } else {
       cb(null, result);
@@ -57,14 +57,14 @@ const postBlog = (params, cb) => {
   );
 };
 
-const createUser = function (data,hachedPW,callback){
+const createUser = function (data, hachedPW, callback) {
   let query = "INSERT into users (fullName,password,phoneNumber,adress,email) VALUES (?,?,?,?,?)";
-  db.query(query,[data.fullname,hachedPW,data.phone,data.adress,data.email] ,callback )
+  db.query(query, [data.fullname, hachedPW, data.phone, data.adress, data.email], callback)
 }
 
-const selectUserByEmail = function (data,callback){
+const selectUserByEmail = function (data, callback) {
   let query = "SELECT * FROM users WHERE email =  ? ";
-  db.query(query,[data.email],callback)
+  db.query(query, [data.email], callback)
 }
 
 
@@ -84,6 +84,21 @@ const deletePost = function (val, callback) {
   db.query(query, callback)
 };
 
+
+const getBlogAdmin = function (callback) {
+  let query = "select * from blogs;"
+  db.query(query, callback)
+};
+const acceptBlog = function (val, callback) {
+  let query = `UPDATE blogs SET status = "accepted" WHERE id = ${val};`
+  db.query(query, callback)
+};
+
+const deleteBlog = function (val, callback) {
+  let query = `delete from blogs WHERE id = ${val};`
+  db.query(query, callback)
+};
+
 module.exports = {
   db,
   homeProducts,
@@ -94,8 +109,14 @@ module.exports = {
   acceptPost,
   deletePost,
   createUser,
-  selectUserByEmail
+  selectUserByEmail,
+  getBlogAdmin,
+  acceptBlog,
+  deleteBlog
 }
+
+
+
 
 
 

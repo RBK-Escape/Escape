@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { Nav } from 'react-bootstrap';
+import { Nav, Button } from 'react-bootstrap';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
+import Swal from 'sweetalert2'
 
 
 function Admin() {
@@ -19,6 +20,7 @@ function Admin() {
         fetchdata()
 
     }, []);
+
 
     const acceptPost = (id) => {
         axios.patch(`http://localhost:3001/admin/patch/${id}`)
@@ -42,20 +44,23 @@ function Admin() {
 
     }
 
+
+
+
+
     return (
         <div>
-            <Nav className="navbar navbar-dark bg-secondary">
-                <Link to="/" className="navbar-brand" > <a>Home</a> </Link>
-                <Link to="/store" className="navbar-brand" > <a> Store </a> </Link>
-            </Nav>
+            <Link to='/adminBlog' style={{ textDecoration: 'none' }}>
+                <div className="button">
+                    <span>Inspect Blogs</span>
+                </div>
+            </Link>
 
-
-            {console.log("test here ", data)}
 
             <div id="adminFeed">{data.length && data.map((post) => {
 
                 return <div className="AdminPost" >
-                    {console.log("test")}
+                    {console.log("this is the post", post)}
                     <img className="card-img-top" src={post.image} alt="Card image" id="imagePreviewAdmin" />
                     <div className="card-body">
 
@@ -64,23 +69,32 @@ function Admin() {
                         {post.toSell && <div> Selling price: {post.price} dt</div>}
                         {post.toRent && <div> Renting price: {post.price} dt/day</div>}
                         <div> Post status: {post.status} </div>
-                        <button type="button" class="btn btn-success" onClick={() => acceptPost(post.id)}>Accept post</button>
-                        <button type="button" class="btn btn-danger" onClick={() => deletePost(post.id)}>Delete post</button>
+                        <button type="button" class="btn btn-success" onClick={() => {
+                            acceptPost(post.id)
+                            Swal.fire(
+                                'Done!',
+                                'You accepted this post!',
+                                'success'
+                            )
+                        }}>Accept post</button>
+                        <button type="button" class="btn btn-danger" onClick={() => {
+                            deletePost(post.id)
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Oops...',
+                                text: 'This post is deleted !',
+                            })
+                        }}>Delete post</button>
 
                     </div>
                 </div>
 
 
             })}</div>
-
-
-
         </div>
 
     )
 }
-
-
-
-
 export default Admin;
+
+

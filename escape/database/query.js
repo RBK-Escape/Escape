@@ -1,4 +1,4 @@
-const {db} = require('./index.js');
+const { db } = require('./index.js');
 
 ///////////////////////////////////////////////////////////
 // query to fetch element for the store.js component
@@ -39,7 +39,7 @@ const removeItemFromCart = (id) =>{
 /////////////////////////////////////////////////////////////
 
 
-module.exports= {
+module.exports = {
     getAllEquipments,
     getEquipmentsToRent,
     getEquipmentsToBuy,
@@ -47,4 +47,4 @@ module.exports= {
     updateInCartValue,
     removeItemFromCart
 }
-  
+
