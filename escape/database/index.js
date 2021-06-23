@@ -5,7 +5,7 @@ const database = "escape";
 
 const connection = mysql.createConnection({
   user: "root",
-  password: "",
+  password: "password",
 });
 
 const db = Promise.promisifyAll(connection, { multiArgs: true });
@@ -39,7 +39,7 @@ var searchProducts = (cb) => {
 
 
 var blog = (cb) => {
-  db.query("SELECT * FROM blogs", (err, result) => {
+  db.query("SELECT * FROM blogs where status= 'accepted'", (err, result) => {
     if (err) {
       cb(err, null);
     } else {
@@ -57,10 +57,12 @@ const postSell = function (data, val, callback) {
   let query = "INSERT INTO equipments (category,name, description, etat,image,price,toRent,toSell,status,isRented,isSold,favorite, renter) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)";
   db.query(query, [data.category, data.title, data.description, data.condition, val, data.price, null, true, "pending", false, false, false, null], callback)
 };
-const postBlog = (place,image,description) => {
-  db.queryAsync(
-    `INSERT INTO blogs (place,image,experience) VALUES ('${place}','${image}','${description}')`
-  );
+const postBlog = (data, callback) => {
+  // return db.queryAsync(
+  //   `INSERT INTO blogs (place,image, text) VALUES (?,?,?)`
+  // );
+  let query = 'INSERT INTO blogs (place,image, experience, status) VALUES (?,?,?, "pending")';
+  db.query(query, [data.place, data.image, data.description], callback)
 };
 
 const createUser = function (data, hachedPW, callback) {

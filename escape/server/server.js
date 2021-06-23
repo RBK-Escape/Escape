@@ -212,10 +212,14 @@ app.post("/api/postBlog", (req, res) => {
   //     }
   //   }
   // );
-  let place = req.body.place;
-  let image = req.body.image;
-  let description = req.body.description;
-  db.postBlog(place,image,description).then((result) => console.log(result))
+  
+  db.postBlog(req.body, (err, result) => {
+      if (err) {
+        console.log(err);
+      } else {
+        res.json(result);
+      }
+  })
 });
 
 app.get('/api/blogs', (req,res) => {

@@ -31,7 +31,7 @@ const Home = ()  => {
            <Link to="/blog">Blogs</Link>
            </button> */}
             <HomeSection />
-            
+            <Cards />
         </div>
     )
 }

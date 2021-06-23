@@ -31,8 +31,8 @@ function App() {
       <Route path="/store" component={Store} />
       <Route path="/Post" component={Post} />
       <Route path="/Admin" component={Admin} />
-      <Route path="/account" component={Account} />
-      <Route path="/blogs" component={Blogs}/>
+      <Route path="/account" />
+      <Route path="/blog" component={Blogs}/>
       <Route path='/postBlog' component={PostBlog} />
       <Route path="/AdminBlog" exact component={AdminBlog} />
       <Route path="/SigIn" component={Account} />
