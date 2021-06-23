@@ -47,8 +47,8 @@ module.exports = (db) => {
     })
     .then(() => {
       return db
-      .queryAsync(
-        ` 
+        .queryAsync(
+          ` 
             CREATE TABLE IF NOT EXISTS blogs (
             id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
             image VARCHAR(1000),
@@ -56,13 +56,13 @@ module.exports = (db) => {
             userId INT ,
             name VARCHAR(255),
             experience VARCHAR(2000),
-            FOREIGN KEY (userId) REFERENCES users (userID)
+            FOREIGN KEY (userId) REFERENCES users (userID), 
+            status VARCHAR(255) DEFAULT 'pending'
             )
         `
-      );
+        );
     })
     .error((err) => {
       console.log(err);
     });
 };
-

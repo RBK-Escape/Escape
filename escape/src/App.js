@@ -11,6 +11,9 @@ import Home from './home.js'
 import Post from './Post.js';
 import Admin from './Admin.js';
 import Account from './Account.js';
+import Blogs from "./Blogs.js";
+import PostBlog from "./PostBlog.js"
+import AdminBlog from './AdminBlog.js';
 import Cart from './cart.js';
 import {CartProvider} from 'react-use-cart';
 
@@ -28,6 +31,10 @@ function App() {
       <Route path="/store" component={Store} />
       <Route path="/Post" component={Post} />
       <Route path="/Admin" component={Admin} />
+      <Route path="/account" component={Account} />
+      <Route path="/blogs" component={Blogs}/>
+      <Route path='/postBlog' component={PostBlog} />
+      <Route path="/AdminBlog" exact component={AdminBlog} />
       <Route path="/SigIn" component={Account} />
       <Route path="/cart" component={Cart} />
       <Footer />

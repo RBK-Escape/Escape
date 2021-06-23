@@ -106,10 +106,7 @@ useEffect (() => {
         </section>
     </main>
     </>
- )
-
-}
+  );
+};
 
 export default Store;
-
- 
