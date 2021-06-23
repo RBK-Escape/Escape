@@ -21,7 +21,7 @@ const Navbar = () => {
         />
       </Link>
       {/* //searchBare */}
-      <form class="input-group w-auto my-auto d-none d-sm-flex">
+      {/* <form class="input-group w-auto my-auto d-none d-sm-flex">
         <input
           autocomplete="off"
           type="search"
@@ -32,7 +32,10 @@ const Navbar = () => {
         <span  class="input-group-text border-0 d-none d-lg-flex" style={{ backgroundColor: "#0F1111", color:"white"}}
           ><i class="fas fa-search"></i
         ></span>
-      </form>
+      </form> */}
+      <div class="input-group w-auto my-auto d-none d-sm-flex">
+        <span>Escape To Mother Nature</span>
+      </div>
 
     </div>
     <ul class="navbar-nav flex-row d-none d-md-flex">

@@ -13,16 +13,26 @@ const PostBlog = () => {
   });
   //   const [formData, setFormData] = useState({})
 
-  useEffect(() => {
+  // useEffect(() => {
+  //   axios
+  //     .post("http://localhost:3001/api/postblog", submit)
+  //     .then((result) => {
+  //       console.log(result);
+  //     })
+  //     .catch((err) => {
+  //       console.log(err);
+  //     });
+  // },[submit]);
+  const postRequest = () => {
     axios
-      .post("http://localhost:3001/api/postblog", submit)
+      .post("http://localhost:3001/api/postblog", {place: place , image: image , description: description})
       .then((result) => {
         console.log(result);
       })
       .catch((err) => {
         console.log(err);
-      });
-  },[submit]);
+      })
+  }
   // const handleChange = (e) => {
   //     setFormData = ({...formData, [e.target.name]: e.target.value})
   // }
@@ -57,7 +67,7 @@ const PostBlog = () => {
       />
       <br></br>
       <br></br>
-      <button onClick={() => setSubmit({place: place , image: image , description: description})} variant="success" type="submit">
+      <button onClick={() => { postRequest() }} variant="success" type="submit">
         Post
       </button>
     </div>
