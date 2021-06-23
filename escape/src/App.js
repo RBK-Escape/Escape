@@ -11,7 +11,8 @@ import React from 'react';
 import Post from './Post.js';
 import Admin from './Admin.js';
 import Account from './Account.js';
-
+import Blogs from "./Blogs.js";
+import PostBlog from "./PostBlog.js"
 
 
 function App() {
@@ -24,6 +25,8 @@ function App() {
       <Route path="/Post" component={Post} />
       <Route path="/Admin" component={Admin} />
       <Route path="/account" component={Account} />
+      <Route path="/blogs" component={Blogs}/>
+      <Route path='/postBlog' component={PostBlog} />
       <Footer />
     </Router>
   );

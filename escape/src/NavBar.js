@@ -2,23 +2,39 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 import logo from "./photos/ESCAPE.png";
 import Search from "./Search";
-import './navBar.css'
+import "./navBar.css";
 
 const Navbar = () => {
   return (
     <div>
-      <nav className='navbar'>
+      <nav className="navbar">
         <div className="title">
-          <div className='navbarLinks'>
-            <NavLink exact to='/' className='logo'><img src={logo} alt='logo' className='logo'/></NavLink>     
-            <NavLink exact to='/search' className='search' ><Search /></NavLink>
-            <NavLink exact to='/' className='navItem'>Home</NavLink>
-            <NavLink exact to='/account' className='navItem'>Account</NavLink>
-            <NavLink exact to='/store' className='navItem'>Store</NavLink>
-            <NavLink exact to='/about' className='navItem'>About</NavLink>
-            <NavLink exact to='/sign' className='navItem'>Sign In</NavLink>
-            </div>
-            
+          <div className="navbarLinks">
+            <NavLink exact to="/" className="logo">
+              <img src={logo} alt="logo" className="logo" />
+            </NavLink>
+            <NavLink exact to="/search" className="search">
+              <Search />
+            </NavLink>
+            <NavLink exact to="/" className="navItem">
+              Home
+            </NavLink>
+            <NavLink exact to="/account" className="navItem">
+              Account
+            </NavLink>
+            <NavLink exact to="/store" className="navItem">
+              Store
+            </NavLink>
+            <NavLink exact to="/about" className="navItem">
+              About
+            </NavLink>
+            <NavLink exact to="/sign" className="navItem">
+              Sign In
+            </NavLink>
+            <NavLink exact to="/blogs" className="navItem">
+              Blogs
+            </NavLink>
+          </div>
         </div>
       </nav>
     </div>
