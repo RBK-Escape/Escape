@@ -32,17 +32,17 @@
     height: auto;
 }
 
-.content-section .title {
+.content-section .title1 {
     text-transform: uppercase;
     font-size: 28px;
     columns: #5d5d5d;
 }
 
 .content-section .content h3 {
-    margin-top:  20px;
-    color: #5d5d5d;
-    font-size: 18px;
-    line-height: 1.5;
+    margin-top:  20px !important;
+    color: #5d5d5d !important;
+    font-size: 18px !important;
+    line-height: 1.5 !important;
 }
 
 .content-section .content .button {
@@ -59,7 +59,7 @@
 }
 
 .content-section .content .button span:hover {
-    background-color: #a52a2a;
+    background-color: tomato;
     color: #fff;
 }
 .content-section .social{
@@ -67,7 +67,7 @@
 }
 
 .content-section .social i{
-    color: #a52a2a;
+    color: tomato;
     font-size: 30px;
     padding: 0px 10px;
 }
@@ -95,7 +95,7 @@
         display: block;
         margin: auto;
     }
-    .content-section .title {
+    .content-section .title1 {
         text-transform: uppercase;
         font-size: 19px;
     }

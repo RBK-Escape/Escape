@@ -61,8 +61,8 @@ function Admin() {
 
                         <h5 className="card-title">Title: {post.name}</h5>
                         <p className="card-text">Description: {post.description}</p>
-                        {post.priceSell && <div> Selling price: {post.priceSell} dt</div>}
-                        {post.priceRent && <div> Renting price: {post.priceRent} dt/day</div>}
+                        {post.toSell && <div> Selling price: {post.price} dt</div>}
+                        {post.toRent && <div> Renting price: {post.price} dt/day</div>}
                         <div> Post status: {post.status} </div>
                         <button type="button" class="btn btn-success" onClick={() => acceptPost(post.id)}>Accept post</button>
                         <button type="button" class="btn btn-danger" onClick={() => deletePost(post.id)}>Delete post</button>

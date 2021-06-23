@@ -6,7 +6,7 @@ import image2 from './photos/image3.jpg';
 import './App.css';
 
 
-const CarouselPage = () => {
+const CarouselPage = (props) => {
   return (
       
     <div id="carouselExampleIndicators" className="carousel slide" data-bs-ride="carousel">

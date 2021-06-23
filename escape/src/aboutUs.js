@@ -9,7 +9,7 @@ return (
 <div className="section">
     <div className="container">
         <div className="content-section">
-            <div className="title">
+            <div className="title1">
                 <h1>About Us</h1>
             </div>
             <div className="content" >

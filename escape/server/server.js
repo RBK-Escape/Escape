@@ -1,6 +1,6 @@
 const express = require("express");
 const db = require("../database");
-const {getAllEquipments, getEquipmentsToRent, getEquipmentsToBuy, getEquipmentByPriceInc, updateInCartValue, getElementInCart} = require('../database/query.js')
+const {getAllEquipments, getEquipmentsToRent, getEquipmentsToBuy, getEquipmentByPriceInc, updateInCartValue, removeItemFromCart} = require('../database/query.js')
 const app = express();
 const port = process.env.PORT || 3001;
 var cors = require('cors')
@@ -83,16 +83,12 @@ app.get('/api/toBuy', (req, res) => {
 
 //filter by price
 app.get('/api/select/:price', (req, res) => {
-  let price = req.params.price;
-  getEquipmentByPriceInc(price).then((data) => {
-    if(price === 'priceRent') {
-    res.send( data[0].filter((element) => {
-           return element.toRent
-      }))
-    } else if (price === 'priceSell') {
-      res.send( data[0].filter((element) => {
-        return element.toSell
-   }))
+  let type = req.params.price;
+  getEquipmentByPriceInc(type).then((data) => {
+    if(type === 'toRent') {
+    res.send( data[0])
+    } else if (type === 'toSell') {
+      res.send( data[0])
     }
   }).catch((err) => {console.log(err);})
 })
@@ -105,14 +101,12 @@ app.patch('/api/catItem/:id', (req, res) => {
   }).catch((err) => {console.log(err);})
 })
 
-//get element inCart
-
-app.get('/api/inCart', (req, res) => {
-  getElementInCart().then((result) => {
-    console.log(result[0])
-    res.status(200).send(result[0])
-  })
-  .catch((err) => { console.log(err);})
+//Remove item from cart
+app.patch('/api/removeFromCart/:id', (req, res) => {
+  let id = req.params.id;
+  removeItemFromCart(id).then(() => {
+    res.status(201).send('removed from card')
+  }).catch((err) => {console.log(err);})
 })
 
 
