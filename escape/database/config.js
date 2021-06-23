@@ -66,4 +66,3 @@ module.exports = (db) => {
       console.log(err);
     });
 };
-
