@@ -30,8 +30,7 @@ module.exports = (db) => {
             name VARCHAR(255),
             description VARCHAR(1000),
             etat VARCHAR(255),
-            priceRent INT DEFAULT null,
-            priceSell INT DEFAULT null,
+            price INT DEFAULT null,
             toRent BOOLEAN ,
             toSell BOOLEAN ,
             status VARCHAR(255) DEFAULT 'pending',
@@ -39,16 +38,17 @@ module.exports = (db) => {
             isSold BOOLEAN ,
             favorite BOOLEAN DEFAULT false,
             image VARCHAR(1000),
-            renter INT ,
-            FOREIGN KEY (userId) REFERENCES users (userID)
+            FOREIGN KEY (userId) REFERENCES users (userID),
+            inCart BOOLEAN DEFAULT false,
+            renter INT 
             )
         `
         );
     })
     .then(() => {
       return db
-      .queryAsync(
-        ` 
+        .queryAsync(
+          ` 
             CREATE TABLE IF NOT EXISTS blogs (
             id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
             image VARCHAR(1000),
@@ -56,10 +56,11 @@ module.exports = (db) => {
             userId INT ,
             name VARCHAR(255),
             experience VARCHAR(2000),
-            FOREIGN KEY (userId) REFERENCES users (userID)
+            FOREIGN KEY (userId) REFERENCES users (userID), 
+            status VARCHAR(255) DEFAULT 'pending'
             )
         `
-      );
+        );
     })
     .error((err) => {
       console.log(err);

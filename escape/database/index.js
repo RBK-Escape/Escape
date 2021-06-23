@@ -39,13 +39,13 @@ var searchProducts = (cb) => {
 }
 
 const postRent = function (data, val, callback) {
-  let query = "INSERT INTO equipments (category,name, description, etat,image,priceRent,priceSell,toRent,toSell,status,isRented,isSold,favorite, renter) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
-  db.query(query, [data.category, data.title, data.description, data.condition, val, data.price, null, true, null, "pending", false, false, false, null], callback)
+  let query = "INSERT INTO equipments (category,name, description, etat,image,price,toRent,toSell,status,isRented,isSold,favorite, renter) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)";
+  db.query(query, [data.category, data.title, data.description, data.condition, val, data.price, true, null, "pending", false, false, false, null], callback)
 };
 
 const postSell = function (data, val, callback) {
-  let query = "INSERT INTO equipments (category,name, description, etat,image,priceSell,priceRent,toRent,toSell,status,isRented,isSold,favorite, renter) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
-  db.query(query, [data.category, data.title, data.description, data.condition, val, data.price, null, null, true, "pending", false, false, false, null], callback)
+  let query = "INSERT INTO equipments (category,name, description, etat,image,price,toRent,toSell,status,isRented,isSold,favorite, renter) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)";
+  db.query(query, [data.category, data.title, data.description, data.condition, val, data.price, null, true, "pending", false, false, false, null], callback)
 };
 const postBlog = (params, cb) => {
   connection.query(
@@ -69,7 +69,7 @@ const selectUserByEmail = function (data, callback) {
 
 
 const getDataAdmin = function (callback) {
-  let query = "select id,userId, name, description, etat, image, status, toRent, toSell,priceSell,priceRent from equipments where status = 0;"
+  let query = "select id,userId, name, description, etat, image, status, toRent, toSell,pricefrom equipments where status = 0;"
   db.query(query, callback)
 };
 
@@ -84,6 +84,21 @@ const deletePost = function (val, callback) {
   db.query(query, callback)
 };
 
+
+const getBlogAdmin = function (callback) {
+  let query = "select * from blogs;"
+  db.query(query, callback)
+};
+const acceptBlog = function (val, callback) {
+  let query = `UPDATE blogs SET status = "accepted" WHERE id = ${val};`
+  db.query(query, callback)
+};
+
+const deleteBlog = function (val, callback) {
+  let query = `delete from blogs WHERE id = ${val};`
+  db.query(query, callback)
+};
+
 module.exports = {
   db,
   homeProducts,
@@ -94,8 +109,14 @@ module.exports = {
   acceptPost,
   deletePost,
   createUser,
-  selectUserByEmail
+  selectUserByEmail,
+  getBlogAdmin,
+  acceptBlog,
+  deleteBlog
 }
+
+
+
 
 
 
