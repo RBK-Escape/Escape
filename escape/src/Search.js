@@ -5,6 +5,7 @@ import { useState, useEffect } from "react";
 const Search = () => {
   const [resourceType, setresourceType] = useState('searchProducts');
   const [searchTerm, setSearchTerm] = useState("");
+  // eslint-disable-next-line
   const [products, setProducts] = useState([]);
   useEffect(() => {
     axios

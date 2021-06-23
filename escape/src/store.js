@@ -1,131 +1,110 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
-import "./App.css";
-import CarouselPage from "./slideImage.js";
+import React, {useState, useEffect} from 'react';
+import axios from 'axios';
+// import './App.css';
+import CarouselPage from './slideImage.js';
+import './store.css';
+import Cart from './cart.js'
+import {useCart} from "react-use-cart";
 
-const Store = () => {
-  const [resourceType, setresourceType] = useState("allEquipments");
-  const [equipements, setEquipments] = useState([]);
-  const [searchTerm, setSearchTerm] = useState("");
-  const searchHandler = () => {};
-  const getSearchDom = () => {};
-  useEffect(() => {
-    axios
-      .get(`http://localhost:3001/api/${resourceType}`)
-      .then((result) => {
-        console.log(result);
-        setEquipments(result.data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, [resourceType]);
+const Store = (props) => {
+ const [resourceType, setresourceType] = useState('allEquipments');
+ const [equipements, setEquipments] = useState([]);
+ const [searchTerm, setSearchTerm] = useState("");
+ const [select, setSelect] = useState("");
+ const [itemId, setItemId] = useState(0);
+ const {addItem} = useCart();
+ 
+ //to get the equipment from database
+    useEffect (() => {
+    axios.get(`http://localhost:3001/api/${resourceType}`).then((result) => {
+        // console.log(result)
+        setEquipments(result.data)
+ }).catch((err) => {console.log(err);})
 
-  return (
+}, [resourceType]) 
+
+//to select equipment by price
+useEffect (() => {
+    axios.get(`http://localhost:3001/api/select/${select}`).then((result) => {
+        // console.log(result)
+        setEquipments(result.data)
+ }).catch((err) => {console.log(err);})
+
+}, [select]) 
+
+//to update the inCart
+useEffect (() => {
+    axios.patch(`http://localhost:3001/api/catItem/${itemId}`).then((result) => {    
+        console.log(result.data)
+ })
+ return () => {
+     setItemId(0)
+ }
+}, [itemId])
+
+
+
+ return (
     <>
-      {/* <div class="container px-0"> */}
-      <CarouselPage />
-      {/* </div> */}
-      <div className="m-4"></div>
-      <div className="container px-0 ">
-        <div className="row gx-1">
-          <div className="col-4 ">
-            <div className="p-3 ">
-              <div className="col-6 col-sm-7 p-3 d-flex">
-                <input
-                  className="form-control"
-                  type="search"
-                  placeholder="Search..."
-                  aria-label="Search"
-                  value={searchTerm}
-                  onChange={(e) => {
-                    setSearchTerm(e.target.value);
-                  }}
-                />
-                {/* <button className="btn btn-outline-success" >Search</button> */}
-              </div>
-              <div className="col-6 col-sm-7 p-3">
-                <button
-                  type="button"
-                  className="btn btn-warning"
-                  onClick={() => setresourceType("allEquipments")}
-                >
-                  All Equipments
-                </button>
-              </div>
-              <div className="col-6 col-sm-7 p-3">
-                <button
-                  type="button"
-                  className="btn btn-warning"
-                  onClick={() => setresourceType("toRent")}
-                >
-                  Equipments to rent
-                </button>
-              </div>
-              <div className="col-6 col-sm-7 p-3">
-                <button
-                  type="button"
-                  className="btn btn-warning"
-                  onClick={() => setresourceType("toBuy")}
-                >
-                  Equipments to buy
-                </button>
-              </div>
-            </div>
-          </div>
-          <div className="col">
-            <div className="p-3 ">
-              <div className="container mb-5 mt-5">
-                <div className="row">
-                  {equipements
-                    .filter((val) => {
-                      if (searchTerm === "") {
-                        return val;
-                      } else if (
-                        val.name
-                          .toLowerCase()
-                          .includes(searchTerm.toLocaleLowerCase())
-                      ) {
-                        return val;
-                      }
-                    })
-                    .map((equipment, key) => {
-                      return (
-                        <div className="col-md-6">
-                          <div className="card mt-3">
-                            <div className="align-items-center p-2 text-center">
-                              <img
-                                src={equipment.image}
-                                className="rounded  img-thumbnail"
-                                alt="equipment"
-                              />
-                              <h5>{equipment.name}</h5>
-                              <div className="mt-3 info">
-                                <span className="text1 d-block">text</span>
-                                <span className="text1">text</span>
-                              </div>
-                              <div className="cost mt-3 text-dark">
-                                <span>Dt</span>
-                                <div>
-                                  <button
-                                    type="button"
-                                    class="btn btn-danger m-4"
-                                  >
-                                    Add to Cart
-                                  </button>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      );
-                    })}
+    <CarouselPage/>
+    <main>
+        <section className="equipment section">
+            <div className="title">
+                <h2>Our Equipments</h2>
+                <input className="col-md-6 offset-md-2 filter-btn search" type="search" placeholder="Search..." aria-label="Search" value={searchTerm} onChange={e=> {setSearchTerm(e.target.value)}} />
+                <div className="btn-container">
+                <button type="button" className="filter-btn space" onClick={() => setresourceType('allEquipments')}>All Equipments</button>
+                <button type="button" className="filter-btn space" onClick={() => setresourceType('toRent')}>Equipments to rent</button>
+                <button type="button" className="filter-btn space" onClick={() => setresourceType('toBuy')}>Equipments to buy</button>
+                <select className="filter-btn selector" onChange= {
+                    // eslint-disable-next-line
+                    e =>{ const selectedPrice = e.target.value; setSelect(selectedPrice); console.log(selectedPrice);}}>
+                    <option value="all">
+                        Filter By Price
+                    </option>
+                    <option value ="toRent">
+                        Rent
+                    </option>
+                    <option  value="toSell">Buy</option>
+                </select>
                 </div>
-              </div>
+                <div className="underline"></div>
             </div>
-          </div>
-        </div>
-      </div>
+            <div className="section-center">
+            { // eslint-disable-next-line
+       equipements.filter((val) => {
+
+          if(searchTerm === "") {
+              return val
+          } else if (val.name.toLowerCase().includes(searchTerm.toLocaleLowerCase())) {
+              return val
+          }
+      }).map((equipment, key) => {
+                return (
+                <div key={equipment.id}> 
+                <article className="eq-item">
+                <img src={equipment.image} alt="equipment" className="photo" />
+                <div className="item-info" >
+                <header>
+                    <h4>{equipment.name} </h4>
+                    <h4 className="price"> TDN {equipment.price}</h4>
+                </header>
+                <p className="item-tex">{equipment.description}</p>
+                <h4>State : {equipment.etat}</h4>
+                <button type="button" class="btn btn-danger m-4" onClick= {() => { setItemId(equipment.id); equipment.inCart = !equipment.inCart; 
+                if (equipment.inCart) {
+                    addItem(equipment)
+                }
+                }  }>Add to Cart</button>
+                </div>
+                </article>
+                </div>
+                )
+            })
+        }
+            </div>
+        </section>
+    </main>
     </>
   );
 };

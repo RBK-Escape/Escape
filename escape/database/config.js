@@ -23,23 +23,6 @@ module.exports = (db) => {
       return db
         .queryAsync(
           ` 
-            CREATE TABLE IF NOT EXISTS blogs (
-            id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-            image VARCHAR(1000),
-            place VARCHAR(255),
-            userId INT ,
-            name VARCHAR(255),
-            experience VARCHAR(2000),
-            FOREIGN KEY (userId) REFERENCES users (userID), 
-            status VARCHAR(255) DEFAULT 'pending'
-            )
-        `
-        );
-    })
-    .then(() => {
-      return db
-        .queryAsync(
-          ` 
             CREATE TABLE IF NOT EXISTS equipments (
             id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
             category VARCHAR(255),
@@ -58,6 +41,23 @@ module.exports = (db) => {
             FOREIGN KEY (userId) REFERENCES users (userID),
             inCart BOOLEAN DEFAULT false,
             renter INT 
+            )
+        `
+        );
+    })
+    .then(() => {
+      return db
+        .queryAsync(
+          ` 
+            CREATE TABLE IF NOT EXISTS blogs (
+            id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+            image VARCHAR(1000),
+            place VARCHAR(255),
+            userId INT ,
+            name VARCHAR(255),
+            experience VARCHAR(2000),
+            FOREIGN KEY (userId) REFERENCES users (userID), 
+            status VARCHAR(255) DEFAULT 'pending'
             )
         `
         );
