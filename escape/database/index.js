@@ -69,7 +69,7 @@ const selectUserByEmail = function (data, callback) {
 
 
 const getDataAdmin = function (callback) {
-  let query = "select id,userId, name, description, etat, image, status, toRent, toSell,pricefrom equipments where status = 0;"
+  let query = "select id,userId, name, description, etat, image, status, toRent, toSell, price from equipments where status = 0;"
   db.query(query, callback)
 };
 

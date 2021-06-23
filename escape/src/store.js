@@ -3,15 +3,16 @@ import axios from 'axios';
 // import './App.css';
 import CarouselPage from './slideImage.js';
 import './store.css';
-// import {useCart} from "react-use-cart";
+import Cart from './cart.js'
+import {useCart} from "react-use-cart";
 
-const Store = () => {
+const Store = (props) => {
  const [resourceType, setresourceType] = useState('allEquipments');
  const [equipements, setEquipments] = useState([]);
  const [searchTerm, setSearchTerm] = useState("");
  const [select, setSelect] = useState("");
- const [cartItems, setCartItems] = useState([]);
  const [itemId, setItemId] = useState(0);
+ const {addItem} = useCart();
  
  //to get the equipment from database
     useEffect (() => {
@@ -34,6 +35,7 @@ useEffect (() => {
 //to update the inCart
 useEffect (() => {
     axios.patch(`http://localhost:3001/api/catItem/${itemId}`).then((result) => {    
+        console.log(result.data)
  })
  return () => {
      setItemId(0)
@@ -42,16 +44,9 @@ useEffect (() => {
 
 
 
-// get element inCart
-
-useEffect (() => {
-    axios.get(`http://localhost:3001/api/inCart`).then((result) => {    
-        setCartItems(result.data)
- })
-}, [cartItems])
  return (
     <>
-    <CarouselPage />
+    <CarouselPage/>
     <main>
         <section className="equipment section">
             <div className="title">
@@ -92,11 +87,15 @@ useEffect (() => {
                 <div className="item-info" >
                 <header>
                     <h4>{equipment.name} </h4>
-                    <h4 className="price"> TDN {equipment.priceRent? equipment.priceRent : equipment.priceSell}</h4>
+                    <h4 className="price"> TDN {equipment.price}</h4>
                 </header>
                 <p className="item-tex">{equipment.description}</p>
                 <h4>State : {equipment.etat}</h4>
-                <button type="button" class="btn btn-danger m-4" onClick= {() => { setItemId(equipment.id); }}>Add to Cart</button>
+                <button type="button" class="btn btn-danger m-4" onClick= {() => { setItemId(equipment.id); equipment.inCart = !equipment.inCart; 
+                if (equipment.inCart) {
+                    addItem(equipment)
+                }
+                }  }>Add to Cart</button>
                 </div>
                 </article>
                 </div>
