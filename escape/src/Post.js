@@ -6,7 +6,8 @@ import './App.css';
 
 
 function Post(props) {
-     console.log(props.)
+    console.log(props);
+
     const [title, setTitle] = useState("")
     const [category, setCategory] = useState("")
     const [description, setDescription] = useState("")
@@ -31,7 +32,7 @@ function Post(props) {
 
         axios.post("http://localhost:3001/api/upload", {
             data: base64EncodedImage, title: title, category: category,
-            description: description, condition: condition, price: price, sell: sell, rent: rent
+            description: description, condition: condition, price: price, sell: sell, rent: rent, id: props.id
         }).then(result =>
 
             console.log(result.data))

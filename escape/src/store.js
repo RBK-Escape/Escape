@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-// import './App.css';
 import CarouselPage from './slideImage.js';
 import './store.css';
 // eslint-disable-next-line
 import Cart from './cart.js'
+
 import { useCart } from "react-use-cart";
 
 const Store = (props) => {
@@ -45,7 +45,6 @@ const Store = (props) => {
             setItemId(0)
         }
     }, [itemId])
-
 
 
     return (
