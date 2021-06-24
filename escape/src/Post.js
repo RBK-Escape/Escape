@@ -5,8 +5,8 @@ import axios from 'axios';
 import './App.css';
 
 
-function Post() {
-
+function Post(props) {
+     console.log(props.)
     const [title, setTitle] = useState("")
     const [category, setCategory] = useState("")
     const [description, setDescription] = useState("")

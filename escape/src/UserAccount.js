@@ -1,9 +1,11 @@
 import React from 'react';
 
+function UserAccount(props) {
 
-function UserAccount() {
-
-
+if(!props.id.auth) {
+    console.log(props.id.auth);
+    return (<p>nooooo</p>)
+}
     return (
         <div>test</div>
     )

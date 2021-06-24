@@ -3,6 +3,7 @@ import axios from 'axios';
 // import './App.css';
 import CarouselPage from './slideImage.js';
 import './store.css';
+// eslint-disable-next-line
 import Cart from './cart.js'
 import { useCart } from "react-use-cart";
 
