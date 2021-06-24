@@ -1,6 +1,6 @@
 const express = require("express");
 const db = require("../database");
-const { getAllEquipments, getEquipmentsToRent, getEquipmentsToBuy, getEquipmentByPriceInc, updateInCartValue, removeItemFromCart } = require('../database/query.js')
+const {getAllEquipments, getEquipmentsToRent, getEquipmentsToBuy, getEquipmentByPriceInc, updateInCartValue, removeItemFromCart, getThreeRandomBlogs} = require('../database/query.js')
 const app = express();
 const port = process.env.PORT || 3001;
 var cors = require("cors");
@@ -8,8 +8,6 @@ const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
 
 app.use(cors());
-
-var cors = require("cors");
 
 app.use(express.json({ limit: "50mb" }));
 app.use(express.urlencoded({ limit: "50mb", extended: true }));
@@ -71,6 +69,14 @@ app.get("/api/toBuy", (req, res) => {
     res.send(data[0]);
   });
 });
+
+//Get three blogs 
+app.get('/api/homeBologs', (req, res) => {
+  getThreeRandomBlogs().then((result) => {
+    res.status(200).json(result[0])  
+  })
+  .catch((err) => {console.log(err);})
+})
 ////////////////////////////////////////////////////////////
 
 ////From bechir
@@ -182,16 +188,19 @@ app.post('/signin', (req, res) => {
           const token = jwt.sign({ id }, "jwtSecret", {
             expiresIn: 6000
           })
-          res.json({ auth:true, token, result })
+          res.json({ auth:true, token, id: result[0].userID })
         } else {
-          res.send({ message: "Login failed" })
+          res.send({ message: "Wrong password", auth:false})
         }
       });
     } else {
-      res.send({ message: "User doesn't exist" })
+      res.send({ message: "User doesn't exist", auth: false})
     }
   });
 });
+
+
+
 
 // app.get("/api/homeProducts", (req, res) => {
 //   db.homeProducts(function (err, result) {
