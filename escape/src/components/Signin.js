@@ -2,21 +2,17 @@
 import React, { Component, useEffect, useState } from "react";
 import axios from "axios";
 import { useHistory } from "react-router-dom";
+import Swal from 'sweetalert2';
+import UserAccount from "../UserAccount.js";
+
 
 import './auth.css'
 
 
 
-
-
-
-
-
-
-
 function Signin(props) {
 
-  // let history = useHistory();
+  let history = useHistory();
 
 
 
@@ -31,6 +27,7 @@ function Signin(props) {
 
   const [email, setemail] = useState("");
   const [password, setpassword] = useState("");
+  const [logInStatus, setLogInStatus] = useState(false)
 
   const signin = (e) => {
     e.preventDefault()
@@ -40,16 +37,23 @@ function Signin(props) {
         password
       })
       .then((res) => {
-        console.log("helloooo", res.data.result[0].userID)
-        props.setId(res.data.result[0].userID);
-
-
+        if ( !res.data.auth ) {
+          setLogInStatus(false)
+          Swal.fire('Oops...', res.data.message, '!')
+        } else {
+          setLogInStatus(true)
+          props.setId({id: res.data.id , auth: true});
+        }
+        console.log("helloooo", res.data)
       });
   };
 
   console.log("id here", props.id)
-
+    if (logInStatus) {
+      history.push("/UserAccount");
+    }
   return (
+    <>
     <div className='signin'>
       <form>
         <h3>Sign In</h3>
@@ -102,7 +106,7 @@ function Signin(props) {
       </form>
       <br />
     </div>
-
+    </>
   );
 }
 export default Signin;

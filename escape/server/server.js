@@ -188,16 +188,19 @@ app.post('/signin', (req, res) => {
           const token = jwt.sign({ id }, "jwtSecret", {
             expiresIn: 6000
           })
-          res.json({ auth:true, token, result })
+          res.json({ auth:true, token, id: result[0].userID })
         } else {
-          res.send({ message: "Login failed" })
+          res.send({ message: "Wrong password", auth:false})
         }
       });
     } else {
-      res.send({ message: "User doesn't exist" })
+      res.send({ message: "User doesn't exist", auth: false})
     }
   });
 });
+
+
+
 
 // app.get("/api/homeProducts", (req, res) => {
 //   db.homeProducts(function (err, result) {
