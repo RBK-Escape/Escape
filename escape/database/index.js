@@ -18,69 +18,91 @@ db.connectAsync()
   .then(() => db.queryAsync(`USE ${database}`))
   .then(() => createTables(db));
 
-
 var homeProducts = (cb) => {
+  db.query("SELECT * FROM equipments", (err, result) => {
+    if (err) {
+      cb(err, null);
+    } else {
+      cb(null, result);
+    }
+  });
+};
+var searchProducts = (cb) => {
   db.query('SELECT * FROM equipments', (err, result) => {
     if (err) {
       cb(err, null);
     } else {
       cb(null, result);
     }
-  })
+  });
 }
-var searchProducts = (cb) => {
-  db.query('SELECT * FROM equipments', (err, result) => {
-    if(err){
+
+
+var blog = (cb) => {
+  db.query("SELECT * FROM blogs where status= 'accepted'", (err, result) => {
+    if (err) {
       cb(err, null);
     } else {
       cb(null, result);
     }
-  })
-}
+  });
+};
 
 const postRent = function (data, val, callback) {
-  let query = "INSERT INTO equipments (category,name, description, etat,image,priceRent,priceSell,toRent,toSell,status,isRented,isSold,favorite, renter) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
-  db.query(query, [data.category, data.title, data.description, data.condition, val, data.price, null, true, null, "pending", false, false, false, null], callback)
+  let query = "INSERT INTO equipments (category,name, description, etat,image,price,toRent,toSell,status,isRented,isSold,favorite, renter) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)";
+  db.query(query, [data.category, data.title, data.description, data.condition, val, data.price, true, null, "pending", false, false, false, null], callback)
 };
 
 const postSell = function (data, val, callback) {
-  let query = "INSERT INTO equipments (category,name, description, etat,image,priceSell,priceRent,toRent,toSell,status,isRented,isSold,favorite, renter) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
-  db.query(query, [data.category, data.title, data.description, data.condition, val, data.price, null, null, true, "pending", false, false, false, null], callback)
+  let query = "INSERT INTO equipments (category,name, description, etat,image,price,toRent,toSell,status,isRented,isSold,favorite, renter) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)";
+  db.query(query, [data.category, data.title, data.description, data.condition, val, data.price, null, true, "pending", false, false, false, null], callback)
 };
-const postBlog = (params, cb) => {
-  connection.query(
-    "INSERT INTO blogs(place,image,experience) VALUES(?,?,?)",
-    params,
-    (err, events) => {
-      cb(err, events);
-    }
-  );
+const postBlog = (data, callback) => {
+  // return db.queryAsync(
+  //   `INSERT INTO blogs (place,image, text) VALUES (?,?,?)`
+  // );
+  let query = 'INSERT INTO blogs (place,image, experience, status) VALUES (?,?,?, "pending")';
+  db.query(query, [data.place, data.image, data.description], callback)
 };
 
-const createUser = function (data,hachedPW,callback){
+const createUser = function (data, hachedPW, callback) {
   let query = "INSERT into users (fullName,password,phoneNumber,adress,email) VALUES (?,?,?,?,?)";
-  db.query(query,[data.fullname,hachedPW,data.phone,data.adress,data.email] ,callback )
+  db.query(query, [data.fullname, hachedPW, data.phone, data.adress, data.email], callback)
 }
 
-const selectUserByEmail = function (data,callback){
+const selectUserByEmail = function (data, callback) {
   let query = "SELECT * FROM users WHERE email =  ? ";
-  db.query(query,[data.email],callback)
+  db.query(query, [data.email], callback)
 }
 
 
 const getDataAdmin = function (callback) {
-  let query = "select id,userId, name, description, etat, image, status, toRent, toSell,priceSell,priceRent from equipments where status = 0;"
+  let query = "select id,userId, name, description, etat, image, status, toRent, toSell, price from equipments where status = 0;"
   db.query(query, callback)
 };
 
 const acceptPost = function (val, callback) {
-  let query = `UPDATE equipments SET status = "accepted" WHERE id = ${val};`
-  db.query(query, callback)
+  let query = `UPDATE equipments SET status = "accepted" WHERE id = ${val};`;
+  db.query(query, callback);
+};
+
+const deletePost = function (val, callback) {
+  let query = `delete from equipments WHERE id = ${val};`;
+  db.query(query, callback);
 };
 
 
-const deletePost = function (val, callback) {
-  let query = `delete from equipments WHERE id = ${val};`
+const getBlogAdmin = function (callback) {
+  let query = "select * from blogs;"
+  db.query(query, callback)
+};
+const acceptBlog = function (val, callback) {
+  let query = `UPDATE blogs SET status = "accepted" WHERE id = ${val};`
+  db.query(query, callback)
+};
+
+const deleteBlog = function (val, callback) {
+  let query = `delete from blogs WHERE id = ${val};`
   db.query(query, callback)
 };
 
@@ -94,11 +116,10 @@ module.exports = {
   acceptPost,
   deletePost,
   createUser,
-  selectUserByEmail
-}
-
-
-
-
-
-
+  selectUserByEmail,
+  postBlog,
+  blog,
+  getBlogAdmin,
+  acceptBlog,
+  deleteBlog
+};

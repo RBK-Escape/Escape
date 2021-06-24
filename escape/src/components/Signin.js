@@ -20,6 +20,7 @@ function Signin() {
 
 
   return (
+    <div className='signin'>
     <form>
       <h3>Sign In</h3>
 
@@ -69,6 +70,9 @@ function Signin() {
       </button>
       <p className="forgot-password text-right"></p>
     </form>
+    <br />
+    </div>
+    
   );
 }
 export default Signin;

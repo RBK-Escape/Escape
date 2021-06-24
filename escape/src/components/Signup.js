@@ -24,6 +24,7 @@ function SignUp() {
   };
 
   return (
+    <div className='signup'>
     <form>
       <h3>Sign Up</h3>
 
@@ -94,6 +95,7 @@ function SignUp() {
       </button>
       <p className="forgot-password text-right"></p>
     </form>
+    </div>
   );
 }
 export default SignUp;

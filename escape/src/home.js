@@ -1,9 +1,11 @@
-import React from 'react';
+import React from "react";
 import axios from "axios";
 import { useState, useEffect } from "react";
 import { NavLink, Link } from "react-router-dom";
+import HomeSection from './homeSection.js';
+import Cards from './cards.js'
 
- const Home = ()  => {
+const Home = ()  => {
     const [resourceType, setresourceType] = useState('homeProducts');
      const [products, setProducts] = useState([]);
      useEffect(() => {
@@ -15,7 +17,7 @@ import { NavLink, Link } from "react-router-dom";
      }, [resourceType])
     return (
         <div>
-           <div>
+           {/* <div>
                {products.map((product) => {
                    return (
                        <div>
@@ -27,9 +29,9 @@ import { NavLink, Link } from "react-router-dom";
            </div>
            <button>
            <Link to="/blog">Blogs</Link>
-           </button>
-           
-            
+           </button> */}
+            <HomeSection />
+            <Cards />
         </div>
     )
 }
