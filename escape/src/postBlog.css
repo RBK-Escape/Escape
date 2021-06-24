@@ -1,0 +1,45 @@
+
+ 
+  .create h2 {
+    border-bottom: 1px solid #777777;
+    width: 90%;
+    font-family: 'Francois One';
+  }
+  .create-editor {
+    width: 72%;
+    /* float: center; */
+  }
+  
+  .create-preview {
+    width: 60%;
+    float: right;
+    margin: 0 auto;
+  }
+  
+  .create-input {
+    width: 80%;
+    display: block;
+    font-size: 0.9em;
+    height: 30px;
+    margin-bottom: 15px;
+    border: none;
+    padding: 5px;
+    background-color: rgb(236, 233, 233);
+  }
+  
+  .create-body-textarea {
+    width: 80%;
+    font-size: 0.9em;
+    display: block;
+    height: 350px;
+    border: none;
+    padding: 5px;
+    resize: none;
+  }
+  
+  .create-submit-button {
+    margin-top: 15px;
+    font-size: 0.9em;
+    height: 30px;
+  }
+  
