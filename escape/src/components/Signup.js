@@ -1,3 +1,4 @@
+// eslint-disable-next-line
 import React, { Component, useEffect, useState } from "react";
 import "./Signup.css";
 import axios from "axios";
