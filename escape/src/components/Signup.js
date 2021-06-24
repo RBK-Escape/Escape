@@ -1,7 +1,7 @@
 // eslint-disable-next-line
 import React, { Component, useEffect, useState } from "react";
-import "./Signup.css";
 import axios from "axios";
+import './auth.css'
 function SignUp() {
   const [fullname, setfullname] = useState("");
   const [password, setpassword] = useState("");
@@ -25,6 +25,7 @@ function SignUp() {
   };
 
   return (
+    <div className='signup'>
     <form>
       <h3>Sign Up</h3>
 
@@ -95,6 +96,7 @@ function SignUp() {
       </button>
       <p className="forgot-password text-right"></p>
     </form>
+    </div>
   );
 }
 export default SignUp;

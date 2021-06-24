@@ -84,7 +84,7 @@ app.get("/api/searchProducts", (req, res) => {
   db.searchProducts(function (err, result) {
     if (err) {
       res.send(err);
-    }else{
+    } else {
       res.send(err)
     }
   })
@@ -100,10 +100,10 @@ app.get('/api/toBuy', (req, res) => {
 app.get('/api/select/:price', (req, res) => {
   let type = req.params.price;
   getEquipmentByPriceInc(type).then((data) => {
-    if(type === 'toRent') {
-    res.send( data[0])
+    if (type === 'toRent') {
+      res.send(data[0])
     } else if (type === 'toSell') {
-      res.send( data[0])
+      res.send(data[0])
     }
   }).catch((err) => { console.log(err); })
 })
@@ -121,7 +121,7 @@ app.patch('/api/removeFromCart/:id', (req, res) => {
   let id = req.params.id;
   removeItemFromCart(id).then(() => {
     res.status(201).send('removed from card')
-  }).catch((err) => {console.log(err);})
+  }).catch((err) => { console.log(err); })
 })
 
 
@@ -145,30 +145,37 @@ app.post('/signup', (req, res) => {
   db.selectUserByEmail(req.body, (err, result) => {
     if (err) res.send({ err: err })
     if (result.length > 0) {
-      throw "user already exists"
+      res.send("user already exists")
     }
   })
-
-  bcrypt.hash(req.body.password, 10, (err, hash) => {
-    if (err) {
-      console.log(err)
-    }
-    db.createUser(req.body, hash, (err, result) => {
-      if (err) console.log(err)
-      res.send(result)
-    })
-  });
 
   bcrypt.hash(req.body.password, 10, (err, hash) => {
     if (err) {
       console.log(err);
     }
     db.createUser(req.body, hash, (err, result) => {
-      if (err) console.log(err);
-      res.send(result);
+      if (err) res.send(err);
+      res.send({ auth:true, result});
     });
   });
 });
+
+const verifyJWT = (req , res , next ) => {
+  const token = req.headers["x-access-token"];
+
+  if(!token) {
+    res.send("No token")
+  }else {
+    jwt.verify(token, "jwtSecret" ,(err , decoded) => {
+      if(err) {
+        res.json({auth: false , message: "auth failed"});
+      }else {
+        req.body.userID = decoded.id; // a verifier 
+        next()  // a verifier
+      }
+    })
+  }
+}
 
 app.post('/signin', (req, res) => {
   db.selectUserByEmail(req.body, (err, result) => {
@@ -181,7 +188,7 @@ app.post('/signin', (req, res) => {
           const token = jwt.sign({ id }, "jwtSecret", {
             expiresIn: 6000
           })
-          res.json({ token, result })
+          res.json({ auth:true, token, result })
         } else {
           res.send({ message: "Login failed" })
         }
@@ -218,24 +225,24 @@ app.post("/api/postBlog", (req, res) => {
   //     }
   //   }
   // );
-  
+
   db.postBlog(req.body, (err, result) => {
-      if (err) {
-        console.log(err);
-      } else {
-        res.json(result);
-      }
+    if (err) {
+      console.log(err);
+    } else {
+      res.json(result);
+    }
   })
 });
 
-app.get('/api/blogs', (req,res) => {
+app.get('/api/blogs', (req, res) => {
   db.blog(function (err, result) {
     if (err) {
       res.send(err);
     } else {
       res.json(result);
     }
-})
+  })
 })
 
 
