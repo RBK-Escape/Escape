@@ -139,30 +139,37 @@ app.post('/signup', (req, res) => {
   db.selectUserByEmail(req.body, (err, result) => {
     if (err) res.send({ err: err })
     if (result.length > 0) {
-      throw "user already exists"
+      res.send("user already exists")
     }
   })
-
-  bcrypt.hash(req.body.password, 10, (err, hash) => {
-    if (err) {
-      console.log(err)
-    }
-    db.createUser(req.body, hash, (err, result) => {
-      if (err) console.log(err)
-      res.send(result)
-    })
-  });
 
   bcrypt.hash(req.body.password, 10, (err, hash) => {
     if (err) {
       console.log(err);
     }
     db.createUser(req.body, hash, (err, result) => {
-      if (err) console.log(err);
-      res.send(result);
+      if (err) res.send(err);
+      res.send({ auth:true, result});
     });
   });
 });
+
+const verifyJWT = (req , res , next ) => {
+  const token = req.headers["x-access-token"];
+
+  if(!token) {
+    res.send("No token")
+  }else {
+    jwt.verify(token, "jwtSecret" ,(err , decoded) => {
+      if(err) {
+        res.json({auth: false , message: "auth failed"});
+      }else {
+        req.body.userID = decoded.id; // a verifier 
+        next()  // a verifier
+      }
+    })
+  }
+}
 
 app.post('/signin', (req, res) => {
   db.selectUserByEmail(req.body, (err, result) => {
@@ -175,7 +182,7 @@ app.post('/signin', (req, res) => {
           const token = jwt.sign({ id }, "jwtSecret", {
             expiresIn: 6000
           })
-          res.json({ token, result })
+          res.json({ auth:true, token, result })
         } else {
           res.send({ message: "Login failed" })
         }
