@@ -1,0 +1,74 @@
+
+
+.container__account {
+	background-color: #fff;
+	border-radius: 10px;
+  	box-shadow: 0 14px 28px rgba(0,0,0,0.25), 
+			0 10px 10px rgba(0,0,0,0.22);
+	position: relative;
+    left: 20rem;
+	overflow: hidden;
+    margin-top: 9rem;
+    margin-bottom: 20rem;
+	width: 768px;
+	max-width: 100%;
+	min-height: 680px;
+}
+
+.form__account {
+	background-color: #FFFFFF;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-direction: column;
+	padding: 0 50px;
+    margin-top: 4rem;
+	height: 100%;
+	text-align: center;
+}
+
+.img__conatiner {
+    position: relative;
+	overflow: hidden;
+    margin-top: -1rem;
+	width: 600px;
+	max-width: 100%;
+	min-height: 400px;
+    border-radius: 20px;
+}
+
+
+.text__container {
+	text-align: center;
+    
+}
+
+.btn__account {
+	border: 1px solid #FF4B2B;
+	background-color: #FF4B2B;
+	color: #FFFFFF;
+	font-size: 12px;
+	font-weight: bold;
+	padding: 12px 45px;
+	letter-spacing: 1px;
+	text-transform: uppercase;
+	transition: transform 80ms ease-in;
+}
+
+.btn__account:active {
+	transform: scale(0.85);
+}
+
+@media only screen and (min-width: 687px) {
+    .container__account {
+      width: 50%;
+      
+    }
+  }
+
+  .marg {
+      margin-top: -120px!important;
+  }
+ 
+  
+ 

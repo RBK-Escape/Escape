@@ -49,13 +49,13 @@ var blog = (cb) => {
 };
 
 const postRent = function (data, val, callback) {
-  let query = "INSERT INTO equipments (category,name, description, etat,image,price,toRent,toSell,status,isRented,isSold,favorite, renter) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)";
-  db.query(query, [data.category, data.title, data.description, data.condition, val, data.price, true, null, "pending", false, false, false, null], callback)
+  let query = "INSERT INTO equipments (category,name, description, etat,image,price,toRent,toSell,status,isRented,isSold,favorite, renter, userId) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)";
+  db.query(query, [data.category, data.title, data.description, data.condition, val, data.price, true, null, "pending", false, false, false, null, data.id.id], callback)
 };
 
 const postSell = function (data, val, callback) {
-  let query = "INSERT INTO equipments (category,name, description, etat,image,price,toRent,toSell,status,isRented,isSold,favorite, renter) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)";
-  db.query(query, [data.category, data.title, data.description, data.condition, val, data.price, null, true, "pending", false, false, false, null], callback)
+  let query = "INSERT INTO equipments (category,name, description, etat,image,price,toRent,toSell,status,isRented,isSold,favorite, renter,userId) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)";
+  db.query(query, [data.category, data.title, data.description, data.condition, val, data.price, null, true, "pending", false, false, false, null,data.id.id], callback)
 };
 const postBlog = (data, callback) => {
   // return db.queryAsync(

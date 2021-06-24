@@ -23,6 +23,7 @@ cloudinary.config({
 });
 
 app.post("/api/upload", async (req, res) => {
+  console.log(req.body)
   try {
     const image = req.body.data;
     let data = req.body;
