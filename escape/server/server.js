@@ -164,7 +164,7 @@ const verifyJWT = (req , res , next ) => {
       if(err) {
         res.json({auth: false , message: "auth failed"});
       }else {
-        req.body.userID = decoded.id; // a verifier 
+        req.userID = decoded.id; // a verifier 
         next()  // a verifier
       }
     })
@@ -182,9 +182,9 @@ app.post('/signin', (req, res) => {
           const token = jwt.sign({ id }, "jwtSecret", {
             expiresIn: 6000
           })
-          res.json({ auth:true, token, result })
+          res.json({ auth:true, token, id : result[0].userID})
         } else {
-          res.send({ message: "Login failed" })
+          res.send({ auth: false ,message: "Wrong password" })
         }
       });
     } else {
