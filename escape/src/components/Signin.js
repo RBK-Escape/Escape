@@ -1,7 +1,6 @@
 import React, { Component, useEffect, useState } from "react";
-import "./Signin.css";
 import axios from "axios";
-
+import './auth.css'
 function Signin() {
 
     const [email, setemail] = useState("");
@@ -66,7 +65,7 @@ function Signin() {
       className="btn btn-primary btn-block"
       onClick={signin}
       >
-        Submit
+        Sign In
       </button>
       <p className="forgot-password text-right"></p>
     </form>

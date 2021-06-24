@@ -109,7 +109,6 @@ app.patch('/api/catItem/:id', (req, res) => {
 
 app.get('/api/inCart', (req, res) => {
   getElementInCart().then((result) => {
-    console.log(result[0])
     res.status(200).send(result[0])
   })
   .catch((err) => { console.log(err);})
@@ -213,7 +212,6 @@ app.get("/admin/data", (req, res) => {
 })
 
 app.patch("/admin/patch/:id", (req, res) => {
-  console.log(req.params.id)
   db.acceptPost(req.params.id, function (err, result) {
     if (err) {
       res.send(err)

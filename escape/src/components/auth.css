@@ -1,0 +1,40 @@
+
+*{
+    box-sizing: border-box;
+}
+
+body{
+    
+    background-image: dzd ;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: -20px 0 50px;
+}
+
+
+
+.form-control {
+    position: relative;
+    padding: 15px 0 0;
+    margin-top: 10px;
+    width: 80%;
+  }
+
+.form-control{
+    width: 80%
+}  
+
+.form-group{
+    position: relative;
+    padding: 15px 0 0;
+    margin-top: 10px;
+    width: 80%;
+}
+
+form {
+width: 50%;
+justify-content: center;
+margin: auto;
+}
