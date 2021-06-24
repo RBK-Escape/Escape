@@ -219,17 +219,7 @@ app.get('/api/homeProducts', (req, res) => {
 });
 
 app.post("/api/postBlog", (req, res) => {
-  // db.postItem(
-  //   [req.body.place, req.body.image, req.body.description],
-  //   (err, result) => {
-  //     if (err) {
-  //       console.log(err);
-  //     } else {
-  //       res.json(result);
-  //     }
-  //   }
-  // );
-
+ 
   db.postBlog(req.body, (err, result) => {
     if (err) {
       console.log(err);

@@ -22,7 +22,7 @@ import { CartProvider } from 'react-use-cart';
 function App() {
   //  const [addToCart, setCart] = useState([])
 
-  const [id, setId] = useState({id: '', auth: false});
+  const [id, setId] = useState({ id: '', auth: false });
   console.log("app.js", id)
 
   return (
@@ -33,14 +33,14 @@ function App() {
         <Route path="/" exact component={Home} />
         <Route path="/about" component={AboutUs} />
         <Route path="/store" component={() => <Store id={id} />} />
-        <Route path="/Post" component={()=> <Post id={id}/>} />
+        <Route path="/Post" component={() => { return <Post id={id} /> }} />
         <Route path="/Admin" component={Admin} />
         <Route path="/blog" component={Blogs} />
-        <Route path='/postBlog' component={()=> { return <PostBlog id ={id} />}} />
+        <Route path='/postBlog' component={() => { return <PostBlog id={id} /> }} />
         <Route path="/AdminBlog" exact component={AdminBlog} />
         <Route path="/SigIn" component={() => <Account id={id} setId={setId} />} />
         <Route path="/cart" component={Cart} />
-        <Route path="/UserAccount" component={()=> <UserAccount id= {id}/>} />
+        <Route path="/UserAccount" component={() => <UserAccount id={id} />} />
         <Footer />
       </CartProvider>
     </Router>

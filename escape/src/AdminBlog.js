@@ -60,8 +60,9 @@ function AdminBlog() {
                     <img className="card-img-top" src={blog.image} alt="Card image" id="imagePreviewAdmin" />
                     <div className="card-body">
 
-                        <h5 className="card-title">Title: {blog.name}</h5>
+                        <h5 className="card-title">Title: {blog.place}</h5>
                         <p className="card-text">{blog.experience}</p>
+                        <p className="card-text">Author: {blog.name}</p>
                         <div> blog status: {blog.status} </div>
                         <button type="button" class="btn btn-success" onClick={() => {
                             acceptBlog(blog.id)
