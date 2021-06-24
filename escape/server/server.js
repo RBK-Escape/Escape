@@ -1,6 +1,6 @@
 const express = require("express");
 const db = require("../database");
-const {getAllEquipments, getEquipmentsToRent, getEquipmentsToBuy, getEquipmentByPriceInc, updateInCartValue, removeItemFromCart} = require('../database/query.js')
+const { getAllEquipments, getEquipmentsToRent, getEquipmentsToBuy, getEquipmentByPriceInc, updateInCartValue, removeItemFromCart } = require('../database/query.js')
 const app = express();
 const port = process.env.PORT || 3001;
 var cors = require("cors");
@@ -78,7 +78,7 @@ app.get("/api/searchProducts", (req, res) => {
   db.searchProducts(function (err, result) {
     if (err) {
       res.send(err);
-    }else{
+    } else {
       res.send(err)
     }
   })
@@ -94,10 +94,10 @@ app.get('/api/toBuy', (req, res) => {
 app.get('/api/select/:price', (req, res) => {
   let type = req.params.price;
   getEquipmentByPriceInc(type).then((data) => {
-    if(type === 'toRent') {
-    res.send( data[0])
+    if (type === 'toRent') {
+      res.send(data[0])
     } else if (type === 'toSell') {
-      res.send( data[0])
+      res.send(data[0])
     }
   }).catch((err) => { console.log(err); })
 })
@@ -115,7 +115,7 @@ app.patch('/api/removeFromCart/:id', (req, res) => {
   let id = req.params.id;
   removeItemFromCart(id).then(() => {
     res.status(201).send('removed from card')
-  }).catch((err) => {console.log(err);})
+  }).catch((err) => { console.log(err); })
 })
 
 
@@ -212,24 +212,24 @@ app.post("/api/postBlog", (req, res) => {
   //     }
   //   }
   // );
-  
+
   db.postBlog(req.body, (err, result) => {
-      if (err) {
-        console.log(err);
-      } else {
-        res.json(result);
-      }
+    if (err) {
+      console.log(err);
+    } else {
+      res.json(result);
+    }
   })
 });
 
-app.get('/api/blogs', (req,res) => {
+app.get('/api/blogs', (req, res) => {
   db.blog(function (err, result) {
     if (err) {
       res.send(err);
     } else {
       res.json(result);
     }
-})
+  })
 })
 
 

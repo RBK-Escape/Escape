@@ -1,24 +1,51 @@
 import React, { Component, useEffect, useState } from "react";
 import "./Signin.css";
 import axios from "axios";
+import { useHistory } from "react-router-dom";
 
-function Signin() {
 
-    const [email, setemail] = useState("");
-    const [password, setpassword] = useState("");
 
-    const signin = (e) => {
-      e.preventDefault()
-        axios
-          .post("http://localhost:3001/signin", {
-            email,
-            password
-          })
-          .then((res) => {
-            console.log(res.data);
-          });
-      };
 
+
+
+
+
+
+
+function Signin(props) {
+
+  // let history = useHistory();
+
+
+
+  // useEffect(() => {
+  //   if (props.id !== "") {
+  //     history.push("/UserAccount");
+  //   }
+  // }, [])
+
+  console.log("singin", props)
+
+
+  const [email, setemail] = useState("");
+  const [password, setpassword] = useState("");
+
+  const signin = (e) => {
+    e.preventDefault()
+    axios
+      .post("http://localhost:3001/signin", {
+        email,
+        password
+      })
+      .then((res) => {
+        console.log("helloooo", res.data.result[0].userID)
+        props.setId(res.data.result[0].userID);
+        
+
+      });
+  };
+
+  console.log("id here", props.id)
 
   return (
     <form>
@@ -30,8 +57,8 @@ function Signin() {
           type="email"
           className="form-control"
           placeholder="Enter email"
-          onChange ={ (e) => {
-          setemail(e.target.value)
+          onChange={(e) => {
+            setemail(e.target.value)
           }}
         />
       </div>
@@ -42,8 +69,8 @@ function Signin() {
           type="password"
           className="form-control"
           placeholder="Enter password"
-          onChange ={ (e) => {
-          setpassword(e.target.value)
+          onChange={(e) => {
+            setpassword(e.target.value)
           }}
         />
       </div>
@@ -61,10 +88,10 @@ function Signin() {
         </div>
       </div>
 
-      <button 
-      type="submit"
-      className="btn btn-primary btn-block"
-      onClick={signin}
+      <button
+        type="submit"
+        className="btn btn-primary btn-block"
+        onClick={signin}
       >
         Submit
       </button>

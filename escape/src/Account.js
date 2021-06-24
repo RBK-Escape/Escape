@@ -1,11 +1,12 @@
 import React from 'react';
 import Signin from "../src/components/Signin";
 import Signup from "../src/components/Signup"
- const Account = ()  => {
+const Account = (props) => {
+    console.log("account", props)
     return (
         <div>
-            <Signin />
-            <Signup />          
+            <Signin id={props.id} setId={props.setId} />
+            <Signup />
         </div>
     )
 }
