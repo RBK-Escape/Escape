@@ -1,6 +1,17 @@
 const express = require("express");
 const db = require("../database");
-const { getAllEquipments, getEquipmentsToRent, getEquipmentsToBuy, getEquipmentByPriceInc, updateInCartValue, removeItemFromCart, getThreeRandomBlogs } = require('../database/query.js')
+const {
+  getAllEquipments, 
+  getEquipmentsToRent, 
+  getEquipmentsToBuy, 
+  getEquipmentByPriceInc, 
+  updateInCartValue, 
+  removeItemFromCart, 
+  getThreeRandomBlogs,
+  viewPostByUser,
+  viewBlogByUser,
+  deleteOnePostByUser
+} = require('../database/query.js')
 const app = express();
 const port = process.env.PORT || 3001;
 var cors = require("cors");
@@ -99,16 +110,7 @@ app.get('/api/homeBologs', (req, res) => {
 })
 ////////////////////////////////////////////////////////////
 
-////From bechir
-app.get("/api/searchProducts", (req, res) => {
-  db.searchProducts(function (err, result) {
-    if (err) {
-      res.send(err);
-    } else {
-      res.send(result)
-    }
-  });
-});
+
 //get equipToBesold
 app.get("/api/toBuy", (req, res) => {
   getEquipmentsToBuy()
@@ -151,6 +153,49 @@ app.patch("/api/removeFromCart/:id", (req, res) => {
     res.status(201).send('removed from card')
   }).catch((err) => { console.log(err); })
 })
+
+//for the user to view his own post 
+app.get("/api/viewpost/:id/:type", (req, res) => {
+  let id = req.params.id
+  let type = req.params.type
+  if ( type === "posts") {
+  viewPostByUser(id).then((result) => {
+    if (result[0].length > 0) {
+      res.status(200).json(result[0])
+    } else {
+      res.status(200).json('You don"t have any post');
+    }
+  }).catch((err) => {console.log(err);})
+} else {
+  if (type === "blogs") {
+    viewBlogByUser(id).then((result) => {
+      if (result[0].length > 0) {
+        res.status(200).json(result[0])
+      } else {
+        res.status(200).json('You don"t have any post');
+      }
+    }).catch((err) => {console.log(err);})
+
+
+  }
+}
+})
+
+//For user to delete posts 
+app.delete("/api/deletePostByUser/:id/:type", (req, res) => {
+  let id = req.params.id
+  let type = req.params.type
+  let table;
+  if (type === 'posts') {
+    table = 'equipments';
+  } else {
+    table = 'blogs';
+  }
+  deleteOnePostByUser(id,table).then((result) => {
+    console.log(result);
+  })
+})
+
 
 
 ////////////////////////////////////////////////////////////
@@ -324,7 +369,6 @@ app.patch("/admin/blog/patch/:id", (req, res) => {
 });
 
 app.delete("/admin/blog/delete/:id", (req, res) => {
-  console.log(req.params.id);
   db.deleteBlog(req.params.id, function (err, result) {
     if (err) {
       res.send(err);

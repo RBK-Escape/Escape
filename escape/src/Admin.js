@@ -62,7 +62,7 @@ function Admin() {
 
                 return <div className="AdminPost" >
                     {console.log("this is the post", post)}
-                    <img className="card-img-top" src={post.image} alt="Card image" id="imagePreviewAdmin" />
+                    <img className="card-img-top" src={post.image} alt="Card" id="imagePreviewAdmin" />
                     <div className="card-body">
 
                         <h5 className="card-title">Title: {post.name}</h5>

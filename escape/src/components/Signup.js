@@ -27,12 +27,12 @@ function SignUp() {
   };
 
   return (
-    <div className='signup'>
-    <form>
-      <h3>Sign Up</h3>
+    <div >
+    <form className="sign-up-form ss">
+      <h2 className="title-s">Sign Up</h2>
 
-      <div className="form-group">
-        <label>Full name</label>
+      <div className="input-field-s">
+        <i className="fas fa-user"></i>
         <input 
         type="text" 
         className="form-control" 
@@ -42,8 +42,9 @@ function SignUp() {
         }}/>
       </div>
 
-      <div className="form-group">
-        <label>Email address</label>
+      <div className="input-field-s">
+      <i className="fa fa-envelope"></i>
+        
         <input
           type="email"
           className="form-control"
@@ -54,8 +55,8 @@ function SignUp() {
         />
       </div>
 
-      <div className="form-group">
-        <label>Phone number</label>
+      <div className="input-field-s">
+      <i className="fas fa-user"></i>
         <input
           type="phone"
           className="form-control"
@@ -66,8 +67,8 @@ function SignUp() {
         />
       </div>
 
-      <div className="form-group">
-        <label>Address</label>
+      <div className="input-field-s">
+      <i className="fa fa-mobile"></i>
         <input type="address" 
         className="form-control" 
         placeholder="Address" 
@@ -77,8 +78,8 @@ function SignUp() {
         />
       </div>
 
-      <div className="form-group">
-        <label>Password</label>
+      <div className="input-field-s">
+      <i className="fas fa-lock"></i>
         <input
           type="password"
           className="form-control"
@@ -91,7 +92,8 @@ function SignUp() {
 
       <button 
       type="submit" 
-      className="btn btn-primary btn-block"
+      className="btn-s"
+      id="sign-up-btn"
       onClick={signup}
       >
         Sign Up

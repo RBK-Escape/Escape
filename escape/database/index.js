@@ -87,7 +87,7 @@ const selectUserByEmail = function (data, callback) {
 
 
 const getDataAdmin = function (callback) {
-  let query = "select id,userId, name, description, etat, image, status, toRent, toSell, price from equipments where status = 0;"
+  let query = "select id,userId, name, description, etat, image, status, toRent, toSell, price from equipments where status = 0 ORDER BY id DESC;"
   db.query(query, callback)
 };
 
@@ -103,7 +103,7 @@ const deletePost = function (val, callback) {
 
 
 const getBlogAdmin = function (callback) {
-  let query = "select * from blogs;"
+  let query = "select * from blogs ORDER BY id DESC;"
   db.query(query, callback)
 };
 const acceptBlog = function (val, callback) {

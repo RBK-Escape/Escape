@@ -18,7 +18,7 @@ import Cart from './cart.js';
 import UserAccount from './UserAccount.js';
 import { CartProvider } from 'react-use-cart';
 import OneBlog from "./OneBlog.js";
-
+import ViewPost from './viewPost.js';
 
 function App() {
   const [blog, setBlog] = useState({});
@@ -44,6 +44,7 @@ function App() {
         <Route path="/UserAccount" component={() => <UserAccount id={id} />} />
         <Route path="/blog" component={() => <Blogs blog={blog} setBlog={setBlog} />} />
         <Route path="/oneblog" component={() => <OneBlog blog={blog} />} />
+        <Route path="/viewPost" component={() => <ViewPost id ={id}/>} />
         <Footer />
       </CartProvider>
     </Router>
