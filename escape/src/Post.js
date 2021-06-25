@@ -5,7 +5,8 @@ import axios from 'axios';
 import './App.css';
 
 
-function Post() {
+function Post(props) {
+    console.log(props);
 
     const [title, setTitle] = useState("")
     const [category, setCategory] = useState("")
@@ -31,7 +32,7 @@ function Post() {
 
         axios.post("http://localhost:3001/api/upload", {
             data: base64EncodedImage, title: title, category: category,
-            description: description, condition: condition, price: price, sell: sell, rent: rent
+            description: description, condition: condition, price: price, sell: sell, rent: rent, id: props.id
         }).then(result =>
 
             console.log(result.data))

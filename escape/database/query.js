@@ -36,6 +36,9 @@ const removeItemFromCart = (id) =>{
     }
 }
 
+const getThreeRandomBlogs = () => {
+    return db.queryAsync('SELECT * FROM blogs AS r1 JOIN (SELECT CEIL(RAND() * (SELECT MAX(id) FROM blogs)) AS id) AS r2 WHERE r1.id >= r2.id ORDER BY r1.id ASC LIMIT 3')
+}
 /////////////////////////////////////////////////////////////
 
 
@@ -45,6 +48,7 @@ module.exports = {
     getEquipmentsToBuy,
     getEquipmentByPriceInc,
     updateInCartValue,
-    removeItemFromCart
+    removeItemFromCart,
+    getThreeRandomBlogs
 }
 

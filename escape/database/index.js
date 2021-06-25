@@ -48,13 +48,13 @@ var blog = (cb) => {
 };
 
 const postRent = function (data, val, callback) {
-  let query = "INSERT INTO equipments (category,name, description, etat,image,price,toRent,toSell,status,isRented,isSold,favorite, renter) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)";
-  db.query(query, [data.category, data.title, data.description, data.condition, val, data.price, true, null, "pending", false, false, false, null], callback)
+  let query = "INSERT INTO equipments (category,name, description, etat,image,price,toRent,toSell,status,isRented,isSold,favorite, renter, userId) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)";
+  db.query(query, [data.category, data.title, data.description, data.condition, val, data.price, true, null, "pending", false, false, false, null, data.id.id], callback)
 };
 
 const postSell = function (data, val, callback) {
-  let query = "INSERT INTO equipments (category,name, description, etat,image,price,toRent,toSell,status,isRented,isSold,favorite, renter) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)";
-  db.query(query, [data.category, data.title, data.description, data.condition, val, data.price, null, true, "pending", false, false, false, null], callback)
+  let query = "INSERT INTO equipments (category,name, description, etat,image,price,toRent,toSell,status,isRented,isSold,favorite, renter,userId) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)";
+  db.query(query, [data.category, data.title, data.description, data.condition, val, data.price, null, true, "pending", false, false, false, null,data.id.id], callback)
 };
 
 const uploadImage = function(data , val , cb){
@@ -63,11 +63,16 @@ const uploadImage = function(data , val , cb){
 }
 
 const postBlog = (data, callback) => {
-  // return db.queryAsync(
-  //   `INSERT INTO blogs (place,image, text) VALUES (?,?,?)`
-  // );
-  let query = 'INSERT INTO blogs (place,image, experience, status) VALUES (?,?,?, "pending")';
-  db.query(query, [data.place, data.image, data.description], callback)
+  let query1 = `select fullName  from users where userID = "${data.id.id}"`
+  db.query(query1, (err, result) => {
+    if (err) {
+      console.log(err);
+    } else {
+      // console.log("resullllltthefbzuduz", result);
+      let query2 = "INSERT INTO blogs (place,image, experience, userId, name ,status) VALUES (?,?,?,?,?,?)";
+      return db.query(query2, [data.place, data.image, data.description, data.id.id, result[0].fullName, "pending"], callback)
+    }
+  })
 };
 
 const createUser = function (data, hachedPW, callback) {
