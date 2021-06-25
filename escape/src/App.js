@@ -40,9 +40,9 @@ function App() {
         <Route path='/postBlog' component={() => { return <PostBlog id={id} /> }} />
         <Route path="/AdminBlog" exact component={AdminBlog} />
         <Route path="/SigIn" component={() => <Account id={id} setId={setId} />} />
-        <Route path="/cart" component={Cart} />
+        <Route path="/cart" component={() => { return <Cart id={id} /> }} />
         <Route path="/UserAccount" component={() => <UserAccount id={id} />} />
-        <Route path="/blog" component={() => <Blogs blog={blog} setBlog={setBlog}/> }  />
+        <Route path="/blog" component={() => <Blogs blog={blog} setBlog={setBlog} />} />
         <Route path="/oneblog" component={() => <OneBlog blog={blog} />} />
         <Route path="/viewPost" component={() => <ViewPost id ={id}/>} />
         <Footer />

@@ -5,7 +5,7 @@ const database = "escape";
 
 const connection = mysql.createConnection({
   user: "root",
-  password: "password",
+  password: "",
 });
 
 const db = Promise.promisifyAll(connection, { multiArgs: true });
@@ -53,11 +53,11 @@ const postRent = function (data, val, callback) {
 };
 
 const postSell = function (data, val, callback) {
-  let query = "INSERT INTO equipments (category,name, description, etat,image,price,toRent,toSell,status,isRented,isSold,favorite, renter,userId) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
-  db.query(query, [data.category, data.title, data.description, data.condition, val, data.price, null, true, "pending", false, false, false, null,data.id.id], callback)
+  let query = "INSERT INTO equipments (category,name, description, etat,image,price,toRent,toSell,status,isRented,isSold,favorite, renter,userId) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)";
+  db.query(query, [data.category, data.title, data.description, data.condition, val, data.price, null, true, "pending", false, false, false, null, data.id.id], callback)
 };
 
-const uploadImage = function(data , val , cb){
+const uploadImage = function (data, val, cb) {
   let query = "INSERT INTO blogs (place,image, experience, status) VALUES (?,?,?,'pending')";
   db.query (query, [data.place, data.image, data.experience, val], cb)
 }
@@ -116,6 +116,22 @@ const deleteBlog = function (val, callback) {
   db.query(query, callback)
 };
 
+const InCart = function (val, callback) {
+  let query = `INSERT into Cart (equipmentId,userId,price,name) values (?,?,?,?);`
+  db.query(query, [val.equipmentId, val.userId.id, val.price, val.name], callback)
+}
+
+const OutCart = function (item, user, callback) {
+  let query = `delete from Cart where equipmentId= "${item}" and userId= "${user}";`
+  db.query(query, callback)
+}
+
+const EmptyCart = function (user, callback) {
+  console.log("userId here", user)
+  let query = `delete from Cart where userId= "${user}";`
+  db.query(query, callback)
+}
+
 module.exports = {
   db,
   homeProducts,
@@ -133,4 +149,7 @@ module.exports = {
   acceptBlog,
   deleteBlog,
   uploadImage,
+  InCart,
+  OutCart,
+  EmptyCart
 };

@@ -66,12 +66,14 @@ module.exports = (db) => {
       return db
         .queryAsync(
           ` 
-            CREATE TABLE IF NOT EXISTS userCart (
-            cartId INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+            CREATE TABLE IF NOT EXISTS Cart (
+            id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+            equipmentId INT,
             userId INT ,
-            itemId INT,
-            FOREIGN KEY (userId) REFERENCES users (userID),
-            FOREIGN KEY (itemId) REFERENCES equipments (id)            
+            price INT DEFAULT null,
+            name VARCHAR(255),
+            FOREIGN KEY (equipmentId) REFERENCES equipments (id),
+            FOREIGN KEY (userId) REFERENCES users (userID)
             )
         `
         );
