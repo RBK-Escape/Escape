@@ -39,6 +39,20 @@ const removeItemFromCart = (id) =>{
 const getThreeRandomBlogs = () => {
     return db.queryAsync('SELECT * FROM blogs AS r1 JOIN (SELECT CEIL(RAND() * (SELECT MAX(id) FROM blogs)) AS id) AS r2 WHERE r1.id >= r2.id ORDER BY r1.id ASC LIMIT 3')
 }
+
+const viewPostByUser = (id) => {
+    return db.queryAsync(`SELECT * FROM equipments WHERE userId='${id}' ORDER BY id DESC`)
+}
+
+const viewBlogByUser = (id) => {
+    return db.queryAsync(`SELECT * FROM blogs WHERE userId='${id}' ORDER BY id DESC`)
+}
+
+const deleteOnePostByUser = (id, table) => {
+    return db.queryAsync(`delete FROM ${table} WHERE id='${id}' `)
+}
+
+
 /////////////////////////////////////////////////////////////
 
 
@@ -49,6 +63,9 @@ module.exports = {
     getEquipmentByPriceInc,
     updateInCartValue,
     removeItemFromCart,
-    getThreeRandomBlogs
+    getThreeRandomBlogs,
+    viewPostByUser,
+    viewBlogByUser,
+    deleteOnePostByUser
 }
 

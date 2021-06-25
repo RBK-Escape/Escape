@@ -5,7 +5,6 @@ import { useHistory } from "react-router-dom";
 import Swal from 'sweetalert2';
 import UserAccount from "../UserAccount.js";
 
-
 import './auth.css'
 
 
@@ -54,12 +53,12 @@ function Signin(props) {
     }
   return (
     <>
-    <div className='signin'>
-      <form>
-        <h3>Sign In</h3>
+    <div >
+      <form className='sign-in-form ss'>
+        <h2 className="title-s">Sign In</h2>
 
-        <div className="form-group">
-          <label>Email address</label>
+        <div className="input-field-s">
+          <i className="fas fa-user"></i>
           <input
             type="email"
             className="form-control"
@@ -70,8 +69,9 @@ function Signin(props) {
           />
         </div>
 
-        <div className="form-group">
-          <label>Password</label>
+        <div className="input-field-s">
+        <i className="fas fa-lock"></i>
+
           <input
             type="password"
             className="form-control"
@@ -82,27 +82,27 @@ function Signin(props) {
           />
         </div>
 
-        <div className="form-group">
+        {/* <div className="form-group">
           <div className="custom-control custom-checkbox">
             <input
               type="checkbox"
               className="custom-control-input"
               id="customCheck1"
-            />
-            <label className="custom-control-label" htmlFor="customCheck1">
+            /> */}
+            {/* <label className="custom-control-label" htmlFor="customCheck1">
               Remember me
-            </label>
-          </div>
-        </div>
+            </label> */}
+          {/* </div>
+        </div> */}
 
-        <button
+        <button 
           type="submit"
-          className="btn btn-primary btn-block"
+          className="btn-s" id="sign-in-btn"
           onClick={signin}
         >
           Sign In
         </button>
-        <p className="forgot-password text-right"></p>
+        {/* <p className="forgot-password text-right"></p> */}
       </form>
       <br />
     </div>

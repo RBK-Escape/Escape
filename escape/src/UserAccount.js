@@ -2,7 +2,7 @@ import React from 'react';
 import './userAccount.css'
 import {Link} from 'react-router-dom';
 import Post from './Post.js';
-
+import ViewPost from './viewPost.js';
 
 function UserAccount(props) {
 
@@ -36,7 +36,7 @@ if(!props.id.auth) {
           Share Your Adventure
         </button>
         </Link>
-        <Link to='/'>
+        <Link to='/viewPost'>
         <button type="button" className="btn btn-outline-danger">
           View Post
         </button>
