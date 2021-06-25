@@ -45,7 +45,7 @@ if(!props.id.auth) {
     </div>
   </div>
 </nav>
-<Post />      
+<Post id={props.id}/>      
 </>
     )
 }

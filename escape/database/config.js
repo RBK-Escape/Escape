@@ -52,6 +52,7 @@ module.exports = (db) => {
             CREATE TABLE IF NOT EXISTS blogs (
             id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
             image VARCHAR(3000),
+            upImage VARCHAR(3000),
             place VARCHAR(255),
             userId INT ,
             name VARCHAR(255),

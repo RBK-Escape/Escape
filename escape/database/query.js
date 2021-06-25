@@ -17,9 +17,9 @@ const getEquipmentsToBuy = () => {
 
 const getEquipmentByPriceInc = (type) => {
     if ( type === 'toRent') {
-    return db.queryAsync('select * from equipments  where toRent = 1 order by price')
+    return db.queryAsync('select * from equipments  where toRent = 1 and status="accepted" order by price')
     } else if ( type === 'toSell') {
-    return db.queryAsync('select * from equipments  where toSell = 1 order by price')
+    return db.queryAsync('select * from equipments  where toSell = 1 and status="accepted" order by price')
 
     }
 }

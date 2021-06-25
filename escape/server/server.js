@@ -55,7 +55,7 @@ app.post("/api/postblog", async (req, res) => {
     const result = await cloudinary.uploader.upload(fileStr, {
       upload_preset: "Escape",
     });
-    console.log(result);
+    console.log(result, 'aslema');
     db.uploadImage(data, result.secure_url, (err, result) => {
       if (err) console.log(err);
       console.log(result);
