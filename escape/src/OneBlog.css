@@ -37,3 +37,8 @@
   .feed-list-item-byline-author {
     font-weight: bolder;
   }
+  .post-byline {
+  color: #777777;
+  font-size: .8em;
+  margin-bottom: 5%;
+}
