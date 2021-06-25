@@ -1,6 +1,6 @@
 const express = require("express");
 const db = require("../database");
-const {getAllEquipments, getEquipmentsToRent, getEquipmentsToBuy, getEquipmentByPriceInc, updateInCartValue, removeItemFromCart, getThreeRandomBlogs} = require('../database/query.js')
+const { getAllEquipments, getEquipmentsToRent, getEquipmentsToBuy, getEquipmentByPriceInc, updateInCartValue, removeItemFromCart, getThreeRandomBlogs } = require('../database/query.js')
 const app = express();
 const port = process.env.PORT || 3001;
 var cors = require("cors");
@@ -27,6 +27,7 @@ app.post("/api/upload", async (req, res) => {
   try {
     const image = req.body.data;
     let data = req.body;
+    console.log("hereeeeeeeererererer", data)
     const result = await cloudinary.uploader.upload(image, {
       upload_preset: "Escape",
     });
@@ -47,7 +48,7 @@ app.post("/api/upload", async (req, res) => {
   }
 });
 
-app.post("http://localhost:3001/api/postblog", async (req, res) => {
+app.post("/api/postblog", async (req, res) => {
   try {
     const fileStr = req.body.data;
     let data = req.body;
@@ -92,9 +93,9 @@ app.get("/api/toBuy", (req, res) => {
 //Get three blogs 
 app.get('/api/homeBologs', (req, res) => {
   getThreeRandomBlogs().then((result) => {
-    res.status(200).json(result[0])  
+    res.status(200).json(result[0])
   })
-  .catch((err) => {console.log(err);})
+    .catch((err) => { console.log(err); })
 })
 ////////////////////////////////////////////////////////////
 
@@ -180,21 +181,21 @@ app.post("/signup", (req, res) => {
     }
     db.createUser(req.body, hash, (err, result) => {
       if (err) res.send(err);
-      res.send({ auth:true, result});
+      res.send({ auth: true, result });
     });
   });
 });
 
-const verifyJWT = (req , res , next ) => {
+const verifyJWT = (req, res, next) => {
   const token = req.headers["x-access-token"];
 
-  if(!token) {
+  if (!token) {
     res.send("No token")
-  }else {
-    jwt.verify(token, "jwtSecret" ,(err , decoded) => {
-      if(err) {
-        res.json({auth: false , message: "auth failed"});
-      }else {
+  } else {
+    jwt.verify(token, "jwtSecret", (err, decoded) => {
+      if (err) {
+        res.json({ auth: false, message: "auth failed" });
+      } else {
         req.body.userID = decoded.id; // a verifier 
         next()  // a verifier
       }
@@ -213,13 +214,13 @@ app.post('/signin', (req, res) => {
           const token = jwt.sign({ id }, "jwtSecret", {
             expiresIn: 6000
           })
-          res.json({ auth:true, token, id: result[0].userID })
+          res.json({ auth: true, token, id: result[0].userID })
         } else {
-          res.send({ message: "Wrong password", auth:false})
+          res.send({ message: "Wrong password", auth: false })
         }
       });
     } else {
-      res.send({ message: "User doesn't exist", auth: false})
+      res.send({ message: "User doesn't exist", auth: false })
     }
   });
 });
@@ -243,7 +244,7 @@ app.get("/api/homeProducts", (req, res) => {
 });
 
 app.post("/api/postBlog", (req, res) => {
- 
+
   db.postBlog(req.body, (err, result) => {
     if (err) {
       console.log(err);
@@ -332,6 +333,45 @@ app.delete("/admin/blog/delete/:id", (req, res) => {
     }
   });
 });
+
+///// InCart
+app.post('/inCart', (req, res) => {
+  db.InCart(req.body, function (err, result) {
+    if (err) {
+      res.send(err);
+    } else {
+      res.status(201).send(result);
+    }
+  })
+})
+
+app.delete(`/OutCart/:itemId/:userId`, (req, res) => {
+  db.OutCart(req.params.itemId, req.params.userId, function (err, result) {
+    if (err) {
+      res.send(err);
+    } else {
+      res.status(204).send(result);
+    }
+  })
+
+})
+
+app.delete(`/EmptyCart/:userId`, (req, res) => {
+  console.log("user id", req.params.userId)
+  db.EmptyCart(req.params.userId, function (err, result) {
+    if (err) {
+      res.send(err);
+    } else {
+      res.sendStatus(result ? 200 : 500);
+    }
+  })
+})
+
+
+
+
+
+
 
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`);
