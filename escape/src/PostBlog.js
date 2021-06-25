@@ -60,9 +60,11 @@ function PostBlog(props) {
   };
 
   return (
-    <div>
+    <div className="create">
       <span>Write The Place Name</span>
       <input
+        id="title"
+        className="create-input"
         type="text"
         placeholder="Place"
         onChange={(event) => {
@@ -71,6 +73,8 @@ function PostBlog(props) {
       />
       <span>Put This Area Image Here</span>
       <input
+        id="imageUrl"
+        className="create-input"
         type="text"
         placeholder="Photo"
         onChange={(event) => {
@@ -79,6 +83,8 @@ function PostBlog(props) {
       />
       <span>Share With Us Your Experience In this Area</span>
       <input
+        id="body"
+        className="create-body-textarea"
         type="text"
         placeholder="Description"
         onChange={(event) => {
@@ -97,6 +103,7 @@ function PostBlog(props) {
           className="form-input"
         />
         <button
+          className="create-submit-button"
           onClick={() => {
             // postRequest();
             Swal.fire(
