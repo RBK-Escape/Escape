@@ -56,7 +56,7 @@ function AdminBlog() {
             <div id="adminFeed">{blog.length && blog.map((blog) => {
 
                 return <div className="AdminPost" >
-                    {console.log("test")}
+                    {console.log(blog)}
                     <img className="card-img-top" src={blog.image} alt="Card image" id="imagePreviewAdmin" />
                     <div className="card-body">
 
