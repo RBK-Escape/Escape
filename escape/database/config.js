@@ -61,6 +61,19 @@ module.exports = (db) => {
             )
         `
         );
+    }).then(() => {
+      return db
+        .queryAsync(
+          ` 
+            CREATE TABLE IF NOT EXISTS userCart (
+            cartId INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+            userId INT ,
+            itemId INT,
+            FOREIGN KEY (userId) REFERENCES users (userID),
+            FOREIGN KEY (itemId) REFERENCES equipments (id)            
+            )
+        `
+        );
     })
     .error((err) => {
       console.log(err);

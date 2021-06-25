@@ -48,9 +48,7 @@ const Blogs = (props) => {
           })}
         </ul>
       </div>
-      <button>
-        <Link to="/postBlog">Post Your Blog</Link>
-      </button>
+      
     </div>
   );
 };
