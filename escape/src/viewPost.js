@@ -38,7 +38,7 @@ const ViewPost = (props) => {
                         <div className="underline"></div>
                     </div>
                     <div className="section-center">
-                        {!ressource.length ? <p>Welcome my dear</p> : ''}
+                        {!ressource.length ? <div className="container__view__post__s"> <p>Say cheese</p> <img  src="https://i.pinimg.com/originals/09/df/30/09df30f765d088be030da204f2e7ec32.gif"alt="hahagif"/></div>: ''}
                         {  typeof viewPosts === "object" ?
                             viewPosts.map((post, key) => {
                                 return (
