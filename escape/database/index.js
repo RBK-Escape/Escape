@@ -58,8 +58,8 @@ const postSell = function (data, val, callback) {
 };
 
 const uploadImage = function (data, val, cb) {
-  let query = "INSERT INTO blogs (place,image, experience, name, status) VALUES (?,?,?,?,'pending')";
-  db.query(query, [data.place, val, data.experience, data.name], cb)
+  let query = "INSERT INTO blogs (place,image, experience, name,userId, status) VALUES (?,?,?,?,?,'pending')";
+  db.query(query, [data.place, val, data.experience, data.name, data.id.id], cb)
 }
 
 const postBlog = (data, callback) => {
