@@ -58,7 +58,6 @@ module.exports = (db) => {
             experience VARCHAR(2000),
             status VARCHAR(255) DEFAULT 'pending',
             FOREIGN KEY (userId) REFERENCES users (userID)
-            
             )
         `
         );

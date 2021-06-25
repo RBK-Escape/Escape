@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import moment from "moment";
 import { Link } from "react-router-dom";
+import OneBlog from "./OneBlog";
 import "./blogs.css";
 
-const Blogs = () => {
+const Blogs = (props) => {
+  const [blog, setBlog] = useState({});
   const [resourceType, setresourceType] = useState("blogs");
   const [blogs, setBlogs] = useState([]);
   useEffect(() => {
@@ -19,20 +22,33 @@ const Blogs = () => {
   }, [resourceType]);
   return (
     <div>
-      <div>
-        {blogs.map((blog) => {
-          return(
-          <div>
-            <h1>{blog.place}</h1>
-            <img src={blog.image} alt="blog" />
-            <p>{blog.experience}</p>
-          </div>
-          )
-        })}
+      <div className="feed">
+        <ul>
+          {blogs.map((blog) => {
+            return (
+              <li className="feed-list-item">
+                <h1
+                  className="feed-list-item-title"
+                  onClick={() => props.setBlog(blog)}
+                >
+                  <Link to="/oneblog">{blog.place}</Link>
+                </h1>
+                <span className="feed-list-item-byline-author">
+                  {moment().startOf("hour").fromNow()}
+                </span>
+                <img
+                  src={blog.image}
+                  alt="blog"
+                  className="feed-list-item-image"
+                  onClick={() => props.setBlog(blog)}
+                />
+                <p className="feed-list-item-lede" onClick={() => props.setBlog(blog)}>{blog.experience}</p>
+              </li>
+            );
+          })}
+        </ul>
       </div>
-      <button>
-        <Link to="/postBlog">Post Your Blog</Link>
-      </button>
+      
     </div>
   );
 };
