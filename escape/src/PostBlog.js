@@ -71,7 +71,7 @@ function PostBlog(props) {
           setPlace(event.target.value);
         }}
       />
-      <span>Put This Area Image Here</span>
+      <span>Author name</span>
       <input
         id="imageUrl"
         className="create-input"
