@@ -48,7 +48,6 @@ const Blogs = (props) => {
           })}
         </ul>
       </div>
-      
     </div>
   );
 };
