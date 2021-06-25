@@ -3,6 +3,8 @@ import axios from 'axios';
 import { useCart } from 'react-use-cart';
 
 const Cart = () => {
+
+const { addItem } = useCart();
 const { isEmpty, items, totalUniqueItems, cartTotal, removeItem, emptyCart} = useCart();
 const [itemId, setId] = useState('');
 
