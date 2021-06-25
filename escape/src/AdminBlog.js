@@ -56,8 +56,8 @@ function AdminBlog() {
             <div id="adminFeed">{blog.length && blog.map((blog) => {
 
                 return <div className="AdminPost" >
-                    {console.log("test")}
-                    <img className="card-img-top" src={blog.image} alt="Card image" id="imagePreviewAdmin" />
+                    {console.log(blog)}
+                    <img className="card-img-top" src={blog.image} alt="Card" id="imagePreviewAdmin" />
                     <div className="card-body">
 
                         <h5 className="card-title">Title: {blog.place}</h5>

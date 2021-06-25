@@ -1,12 +1,12 @@
 const express = require("express");
 const db = require("../database");
 const {
-  getAllEquipments, 
-  getEquipmentsToRent, 
-  getEquipmentsToBuy, 
-  getEquipmentByPriceInc, 
-  updateInCartValue, 
-  removeItemFromCart, 
+  getAllEquipments,
+  getEquipmentsToRent,
+  getEquipmentsToBuy,
+  getEquipmentByPriceInc,
+  updateInCartValue,
+  removeItemFromCart,
   getThreeRandomBlogs,
   viewPostByUser,
   viewBlogByUser,
@@ -66,15 +66,17 @@ app.post("/api/postblog", async (req, res) => {
     const result = await cloudinary.uploader.upload(fileStr, {
       upload_preset: "Escape",
     });
-    console.log(result, 'aslema');
+    console.log(result.secure_url, 'aslema');
     db.uploadImage(data, result.secure_url, (err, result) => {
       if (err) console.log(err);
       console.log(result);
+      res.sendStatus(result ? 200 : 500)
     });
     console.log(fileStr);
   } catch (error) {
     console.log(error);
   }
+  
 });
 
 ///////////////////////////////////////////////////////////
@@ -158,29 +160,28 @@ app.patch("/api/removeFromCart/:id", (req, res) => {
 app.get("/api/viewpost/:id/:type", (req, res) => {
   let id = req.params.id
   let type = req.params.type
-  if ( type === "posts") {
-  viewPostByUser(id).then((result) => {
-    if (result[0].length > 0) {
-      res.status(200).json(result[0])
-    } else {
-      res.status(200).json('You don"t have any post');
-    }
-  }).catch((err) => {console.log(err);})
-} else {
-  if (type === "blogs") {
-    viewBlogByUser(id).then((result) => {
-      console.log(id);
+  if (type === "posts") {
+    viewPostByUser(id).then((result) => {
       if (result[0].length > 0) {
         console.log(result[0]);
         res.status(200).json(result[0])
       } else {
         res.status(200).json('You don"t have any post');
       }
-    }).catch((err) => {console.log(err);})
+    }).catch((err) => { console.log(err); })
+  } else {
+    if (type === "blogs") {
+      viewBlogByUser(id).then((result) => {
+        if (result[0].length > 0) {
+          res.status(200).json(result[0])
+        } else {
+          res.status(200).json('You don"t have any post');
+        }
+      }).catch((err) => { console.log(err); })
 
 
+    }
   }
-}
 })
 
 //For user to delete posts 
@@ -193,7 +194,7 @@ app.delete("/api/deletePostByUser/:id/:type", (req, res) => {
   } else {
     table = 'blogs';
   }
-  deleteOnePostByUser(id,table).then((result) => {
+  deleteOnePostByUser(id, table).then((result) => {
     console.log(result);
   })
 })
