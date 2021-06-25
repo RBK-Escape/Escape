@@ -169,7 +169,9 @@ app.get("/api/viewpost/:id/:type", (req, res) => {
 } else {
   if (type === "blogs") {
     viewBlogByUser(id).then((result) => {
+      console.log(id);
       if (result[0].length > 0) {
+        console.log(result[0]);
         res.status(200).json(result[0])
       } else {
         res.status(200).json('You don"t have any post');
@@ -289,7 +291,7 @@ app.get("/api/homeProducts", (req, res) => {
 });
 
 app.post("/api/postBlog", (req, res) => {
-
+console.log(req.body);
   db.postBlog(req.body, (err, result) => {
     if (err) {
       console.log(err);
