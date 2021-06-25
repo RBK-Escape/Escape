@@ -17,9 +17,11 @@ import AdminBlog from './AdminBlog.js';
 import Cart from './cart.js';
 import UserAccount from './UserAccount.js';
 import { CartProvider } from 'react-use-cart';
+import OneBlog from "./OneBlog.js";
 
 
 function App() {
+  const [blog, setBlog] = useState({});
   //  const [addToCart, setCart] = useState([])
 
   const [id, setId] = useState({ id: '', auth: false });
@@ -35,12 +37,13 @@ function App() {
         <Route path="/store" component={() => <Store id={id} />} />
         <Route path="/Post" component={() => { return <Post id={id} /> }} />
         <Route path="/Admin" component={Admin} />
-        <Route path="/blog" component={Blogs} />
         <Route path='/postBlog' component={() => { return <PostBlog id={id} /> }} />
         <Route path="/AdminBlog" exact component={AdminBlog} />
         <Route path="/SigIn" component={() => <Account id={id} setId={setId} />} />
-        <Route path="/cart" component={Cart} />
+        <Route path="/cart" component={() => { return <Cart id={id} /> }} />
         <Route path="/UserAccount" component={() => <UserAccount id={id} />} />
+        <Route path="/blog" component={() => <Blogs blog={blog} setBlog={setBlog} />} />
+        <Route path="/oneblog" component={() => <OneBlog blog={blog} />} />
         <Footer />
       </CartProvider>
     </Router>
@@ -48,8 +51,3 @@ function App() {
 }
 
 export default App;
-
-
-
-
-

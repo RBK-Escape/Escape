@@ -16,7 +16,7 @@ const Store = (props) => {
     const { addItem } = useCart();
 
 
-
+    console.log(itemId)
     console.log("id store", props.id)
     //to get the equipment from database
     useEffect(() => {
@@ -45,6 +45,15 @@ const Store = (props) => {
             setItemId(0)
         }
     }, [itemId])
+
+    const inCart = (val1, val2, val3) => {
+        axios.post('http://localhost:3001/inCart', {
+            userId: props.id, equipmentId: val1, price: val2, name: val3
+        }).then((result) => {
+            console.log(result.data)
+        }).catch(err =>
+            console.log(err))
+    }
 
 
     return (
@@ -95,6 +104,7 @@ const Store = (props) => {
                                                 <p className="item-tex">{equipment.description}</p>
                                                 <h4>State : {equipment.etat}</h4>
                                                 <button type="button" class="btn btn-danger m-4" onClick={() => {
+                                                    inCart(equipment.id, equipment.price, equipment.name)
                                                     setItemId(equipment.id); equipment.inCart = !equipment.inCart;
                                                     if (equipment.inCart) {
                                                         addItem(equipment)

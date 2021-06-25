@@ -58,7 +58,21 @@ module.exports = (db) => {
             experience VARCHAR(2000),
             status VARCHAR(255) DEFAULT 'pending',
             FOREIGN KEY (userId) REFERENCES users (userID)
-            
+            )
+        `
+        );
+    }).then(() => {
+      return db
+        .queryAsync(
+          ` 
+            CREATE TABLE IF NOT EXISTS Cart (
+            id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+            equipmentId INT,
+            userId INT ,
+            price INT DEFAULT null,
+            name VARCHAR(255),
+            FOREIGN KEY (equipmentId) REFERENCES equipments (id),
+            FOREIGN KEY (userId) REFERENCES users (userID)
             )
         `
         );
