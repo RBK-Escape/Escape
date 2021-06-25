@@ -157,3 +157,28 @@ db.selectUserByEmail(req.body , (err,result) => {
       res.send({message : "User doesn't exist"})
     }
   })
+
+//////////////////////////////////////////////////////////
+const nodemailer = require("nodemailer");
+
+  const transporter = nodemailer.createTransport({
+  service: "hotmail",
+  auth:{
+    user:"escape-project@hotmail.com",
+    pass:"escape1234"
+  }
+})
+const options = {
+  from: "escape-project@hotmail.com",
+  to: "kekw@gmail.com",
+  subject: "dzad",
+  text: "dazda"
+};
+
+transporter.sendMail(options, (err,info) => {
+  if(err){
+    console.log(err)
+    return;
+  }
+  console.log("sent" + info.response)
+})

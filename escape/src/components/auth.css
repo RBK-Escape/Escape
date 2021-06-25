@@ -1,15 +1,23 @@
 
-body {
+.bodySing {
     position: relative;
     width: 100%;
     height: 100%;
     background: url('https://www.vacancesaucamping.com/wp-content/uploads/2021/06/Spitzberg-.jpg')no-repeat   center center ;
-  background-size: cover;
+    background-size: cover;
 
   }
   .signin {
-	position: left ;
+  top: 0%;
+  height: 100%;
+  width: 35%;
+ 
 }
+.signup{
+  background-position-x: right;
+
+}
+
 
 
 
@@ -43,7 +51,9 @@ input {
 }
 
 form {
-    width: 35%;
+   width: 35%;
     justify-content: center;
     margin: auto;
+    
     }
+   

@@ -22,6 +22,7 @@ return (
                 </div>
                 </Link> 
                 <div className="social">
+                {/* {// eslint-disable-next-line} */}
                     <a> <i className="fab fa-facebook-f" ></i></a>
                     <a><i className="fab fa-instagram"></i></a>
                 </div>

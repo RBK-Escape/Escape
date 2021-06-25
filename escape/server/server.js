@@ -1,6 +1,6 @@
 const express = require("express");
 const db = require("../database");
-const {getAllEquipments, getEquipmentsToRent, getEquipmentsToBuy, getEquipmentByPriceInc, updateInCartValue, removeItemFromCart} = require('../database/query.js')
+const {getAllEquipments, getEquipmentsToRent, getEquipmentsToBuy, getEquipmentByPriceInc, updateInCartValue, removeItemFromCart, getThreeRandomBlogs} = require('../database/query.js')
 const app = express();
 const port = process.env.PORT || 3001;
 var cors = require("cors");
@@ -8,8 +8,6 @@ const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
 
 app.use(cors());
-
-var cors = require("cors");
 
 app.use(express.json({ limit: "50mb" }));
 app.use(express.urlencoded({ limit: "50mb", extended: true }));
@@ -71,6 +69,14 @@ app.get("/api/toBuy", (req, res) => {
     res.send(data[0]);
   });
 });
+
+//Get three blogs 
+app.get('/api/homeBologs', (req, res) => {
+  getThreeRandomBlogs().then((result) => {
+    res.status(200).json(result[0])  
+  })
+  .catch((err) => {console.log(err);})
+})
 ////////////////////////////////////////////////////////////
 
 ////From bechir
@@ -78,7 +84,7 @@ app.get("/api/searchProducts", (req, res) => {
   db.searchProducts(function (err, result) {
     if (err) {
       res.send(err);
-    }else{
+    } else {
       res.send(err)
     }
   })
@@ -94,10 +100,10 @@ app.get('/api/toBuy', (req, res) => {
 app.get('/api/select/:price', (req, res) => {
   let type = req.params.price;
   getEquipmentByPriceInc(type).then((data) => {
-    if(type === 'toRent') {
-    res.send( data[0])
+    if (type === 'toRent') {
+      res.send(data[0])
     } else if (type === 'toSell') {
-      res.send( data[0])
+      res.send(data[0])
     }
   }).catch((err) => { console.log(err); })
 })
@@ -115,7 +121,7 @@ app.patch('/api/removeFromCart/:id', (req, res) => {
   let id = req.params.id;
   removeItemFromCart(id).then(() => {
     res.status(201).send('removed from card')
-  }).catch((err) => {console.log(err);})
+  }).catch((err) => { console.log(err); })
 })
 
 
@@ -149,22 +155,24 @@ app.post('/signup', (req, res) => {
     }
     db.createUser(req.body, hash, (err, result) => {
       if (err) res.send(err);
-      res.send({ auth:true, result});
+      res.send({message:"Account created"});
     });
   });
 });
 
+
 const verifyJWT = (req , res , next ) => {
-  const token = req.headers["x-access-token"];
+  const token = req.headers["x-auth-token"];
 
   if(!token) {
-    res.send("No token")
+    return res.send("No token")
   }else {
     jwt.verify(token, "jwtSecret" ,(err , decoded) => {
       if(err) {
-        res.json({auth: false , message: "auth failed"});
+        return res.json({auth: false , message: "auth failed"});
       }else {
-        req.userID = decoded.id; // a verifier 
+        console.log(req)
+        req.id = decoded.id; // a verifier 
         next()  // a verifier
       }
     })
@@ -182,16 +190,19 @@ app.post('/signin', (req, res) => {
           const token = jwt.sign({ id }, "jwtSecret", {
             expiresIn: 6000
           })
-          res.json({ auth:true, token, id : result[0].userID})
+          res.header("x-auth-token",token).json({ auth:true, token, id: result[0].userID })
         } else {
-          res.send({ auth: false ,message: "Wrong password" })
+          res.send({ message: "Wrong password", auth:false})
         }
       });
     } else {
-      res.send({ message: "User doesn't exist" })
+      res.send({ message: "User doesn't exist", auth: false})
     }
   });
 });
+
+
+
 
 // app.get("/api/homeProducts", (req, res) => {
 //   db.homeProducts(function (err, result) {
@@ -219,24 +230,24 @@ app.post("/api/postBlog", (req, res) => {
   //     }
   //   }
   // );
-  
+
   db.postBlog(req.body, (err, result) => {
-      if (err) {
-        console.log(err);
-      } else {
-        res.json(result);
-      }
+    if (err) {
+      console.log(err);
+    } else {
+      res.json(result);
+    }
   })
 });
 
-app.get('/api/blogs', (req,res) => {
+app.get('/api/blogs', (req, res) => {
   db.blog(function (err, result) {
     if (err) {
       res.send(err);
     } else {
       res.json(result);
     }
-})
+  })
 })
 
 

@@ -1,15 +1,25 @@
+// eslint-disable-next-line
 import React, { Component, useEffect, useState } from "react";
 import axios from "axios";
+import Swal from 'sweetalert2';
+import { useHistory } from "react-router-dom";
 import './auth.css'
-function SignUp() {
+
+
+function SignUp(props) {
+  console.log(props)
+
+ 
+
   const [fullname, setfullname] = useState("");
   const [password, setpassword] = useState("");
   const [email, setemail] = useState("");
   const [phone, setphone] = useState(null);
   const [adress, setadress] = useState("");
+  const [logInStatus, setLogInStatus] = useState(false);
 
   const signup = (e) => {
-    e.preventDefault()
+    e.preventDefault();
     axios
       .post("http://localhost:3001/signup", {
         fullname,
@@ -19,12 +29,18 @@ function SignUp() {
         adress,
       })
       .then((res) => {
-        console.log(res);
+        if ( res.data.message !== "Account created") {
+          setLogInStatus(false)
+          Swal.fire('Failed to create account', res.data.message, '!')
+        } 
+        console.log("helloooo", res.data)
       });
   };
 
+
+
   return (
-    <div className='signup'>
+    <container className='signup'>
     <form>
       <h3>Sign Up</h3>
 
@@ -95,7 +111,7 @@ function SignUp() {
       </button>
       <p className="forgot-password text-right"></p>
     </form>
-    </div>
+    </container>
   );
 }
 export default SignUp;

@@ -1,12 +1,15 @@
 import React from "react";
 import axios from "axios";
 import { useState, useEffect } from "react";
+// eslint-disable-next-line
 import { NavLink, Link } from "react-router-dom";
 import HomeSection from './homeSection.js';
 import Cards from './cards.js'
 
 const Home = ()  => {
+    // eslint-disable-next-line
     const [resourceType, setresourceType] = useState('homeProducts');
+    // eslint-disable-next-line
      const [products, setProducts] = useState([]);
      useEffect(() => {
          axios.get(`http://localhost:3001/api/${resourceType}`).then((result) =>{

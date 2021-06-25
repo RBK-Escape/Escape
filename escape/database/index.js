@@ -106,6 +106,8 @@ const deleteBlog = function (val, callback) {
   db.query(query, callback)
 };
 
+
+
 module.exports = {
   db,
   homeProducts,

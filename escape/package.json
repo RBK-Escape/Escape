@@ -19,6 +19,7 @@
     "mdbreact": "^5.0.2",
     "mysql": "^2.18.1",
     "mysql2": "^2.2.5",
+    "nodemailer": "^6.6.2",
     "nodemon": "^2.0.7",
     "react": "^17.0.2",
     "react-bootstrap": "^1.6.1",
