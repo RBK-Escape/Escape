@@ -3,15 +3,10 @@ import axios from "axios";
 import Swal from 'sweetalert2'
 
 function PostBlog(props) {
-  // const [resourceType, setresourceType] = useState("/postBlog");
   const [place, setPlace] = useState("");
   const [image, setImage] = useState("");
   const [description, setDescription] = useState("");
-  // const [submit, setSubmit] = useState({
-  //   place: '',
-  //   image: '',
-  //   description: '',
-  // });
+ 
   const postRequest = () => {
     axios
       .post("http://localhost:3001/api/postblog", { place: place, image: image, description: description, id: props.id })
