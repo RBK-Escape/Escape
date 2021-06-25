@@ -8,7 +8,7 @@ function PostBlog(props) {
   const [previewSource, setPreviewSource] = useState("");
   const [selectedFile, setSelectedFile] = useState();
   const [place, setPlace] = useState("");
-  const [image, setImage] = useState("");
+  const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   // const [submit, setSubmit] = useState({
   //   place: '',
@@ -47,9 +47,9 @@ function PostBlog(props) {
       .post("http://localhost:3001/api/postblog", {
         data: base64EncodedImage,
         place: place,
-        image: image,
         description: description,
         id: props.id,
+        name: name
       })
       .then((result) => {
         console.log(result);
@@ -78,7 +78,7 @@ function PostBlog(props) {
         type="text"
         placeholder="Photo"
         onChange={(event) => {
-          setImage(event.target.value);
+          setName(event.target.value);
         }}
       />
       <span>Share With Us Your Experience In this Area</span>
