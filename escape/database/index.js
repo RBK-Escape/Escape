@@ -5,7 +5,7 @@ const database = "escape";
 
 const connection = mysql.createConnection({
   user: "root",
-  password: "",
+  password: "000000",
 });
 
 const db = Promise.promisifyAll(connection, { multiArgs: true });
@@ -37,7 +37,6 @@ var searchProducts = (cb) => {
   });
 }
 
-
 var blog = (cb) => {
   db.query("SELECT * FROM blogs where status= 'accepted'", (err, result) => {
     if (err) {
@@ -57,6 +56,12 @@ const postSell = function (data, val, callback) {
   let query = "INSERT INTO equipments (category,name, description, etat,image,price,toRent,toSell,status,isRented,isSold,favorite, renter,userId) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)";
   db.query(query, [data.category, data.title, data.description, data.condition, val, data.price, null, true, "pending", false, false, false, null,data.id.id], callback)
 };
+
+const uploadImage = function(data , val , cb){
+  let query = "INSERT INTO blogs (place,image, experience, status) VALUES (?,?,?,'pending')";
+  db.query (query, [data.place, data.image, data.experience], cb)
+}
+
 const postBlog = (data, callback) => {
   let query1 = `select fullName  from users where userID = "${data.id.id}"`
   db.query(query1, (err, result) => {
@@ -126,5 +131,6 @@ module.exports = {
   blog,
   getBlogAdmin,
   acceptBlog,
-  deleteBlog
+  deleteBlog,
+  uploadImage,
 };

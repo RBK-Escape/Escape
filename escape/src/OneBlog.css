@@ -1,11 +1,3 @@
-body {
-    font-family: 'PT Serif', sans-serif;
-    margin: 0px;
-    color: #2C3E50;
-    background-color: #ECF0F1;
-    font-size: 1.1em;
-  }
-  
 .feed-list-item {
     min-height: 350px;
     margin: 40px;
@@ -45,4 +37,3 @@ body {
   .feed-list-item-byline-author {
     font-weight: bolder;
   }
-  
