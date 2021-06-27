@@ -47,11 +47,10 @@ function AdminBlog() {
     return (
         <div>
             <Link to='/Admin' style={{ textDecoration: 'none' }}>
-                <div className="button">
+                <div className="button__admin">
                     <span>Back to posts</span>
                 </div>
             </Link>
-
 
             <div id="adminFeed">{blog.length && blog.map((blog) => {
 

@@ -5,7 +5,7 @@ const database = "escape";
 
 const connection = mysql.createConnection({
   user: "root",
-  password: "",
+  password: "password",
 });
 
 const db = Promise.promisifyAll(connection, { multiArgs: true });
@@ -38,7 +38,7 @@ var searchProducts = (cb) => {
 }
 
 var blog = (cb) => {
-  db.query("SELECT * FROM blogs where status= 'accepted'", (err, result) => {
+  db.query("SELECT * FROM blogs where status= 'accepted' ORDER BY id DESC", (err, result) => {
     if (err) {
       cb(err, null);
     } else {

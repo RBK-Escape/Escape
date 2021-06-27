@@ -1,8 +1,8 @@
 import React from 'react';
-import image6 from './photos/image6.jpg';
-import './App.css'
+import image6 from '../../photos/image6.jpg';
+import '../../App.css'
 import {Link} from 'react-router-dom';
-import './about.css';
+import '../../about.css';
 const AboutUs = () => {
 
 return (

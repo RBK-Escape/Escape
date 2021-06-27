@@ -1,9 +1,9 @@
 import React from "react";
-import image from './photos/image1.jpg';
-import image1 from './photos/image2.jpg';
-import image2 from './photos/image3.jpg';
+import image from '../../photos/image1.jpg';
+import image1 from '../../photos/image2.jpg';
+import image2 from '../../photos/image3.jpg';
 
-import './App.css';
+import '../../App.css';
 
 
 const CarouselPage = (props) => {

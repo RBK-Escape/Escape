@@ -4,9 +4,13 @@ import { Nav, Button } from 'react-bootstrap';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import Swal from 'sweetalert2'
+import { useHistory } from "react-router-dom";
+
 
 
 function Admin() {
+
+    let history = useHistory()
 
     const [data, setData] = useState({ data: [] });
     async function fetchdata() {
@@ -52,10 +56,11 @@ function Admin() {
     return (
         <div>
             <Link to='/adminBlog' style={{ textDecoration: 'none' }}>
-                <div className="button">
+                <div className="button__admin">
                     <span>Inspect Blogs</span>
                 </div>
             </Link>
+            <i className="fa  fa-sign-out" onClick={()=> history.go(0)}>Log out</i>
 
 
             <div id="adminFeed">{data.length && data.map((post) => {

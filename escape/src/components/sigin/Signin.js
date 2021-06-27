@@ -3,9 +3,9 @@ import React, { Component, useEffect, useState } from "react";
 import axios from "axios";
 import { useHistory } from "react-router-dom";
 import Swal from 'sweetalert2';
-import UserAccount from "../UserAccount.js";
+// import UserAccount from "../userAccunt/UserAccount.js";
 
-import './auth.css'
+import '../../auth.css'
 
 
 
@@ -13,20 +13,11 @@ function Signin(props) {
 
   let history = useHistory();
 
-
-
-  // useEffect(() => {
-  //   if (props.id !== "") {
-  //     history.push("/UserAccount");
-  //   }
-  // }, [])
-
   console.log("singin", props)
 
 
   const [email, setemail] = useState("");
   const [password, setpassword] = useState("");
-  const [logInStatus, setLogInStatus] = useState(false)
 
   const signin = (e) => {
     e.preventDefault()
@@ -37,20 +28,22 @@ function Signin(props) {
       })
       .then((res) => {
         if ( !res.data.auth ) {
-          setLogInStatus(false)
           Swal.fire('Oops...', res.data.message, '!')
         } else {
-          setLogInStatus(true)
-          props.setId({id: res.data.id , auth: true});
+          props.setId({id: res.data.id , auth: true, type: res.data.type});
         }
         console.log("helloooo", res.data)
       });
   };
 
   console.log("id here", props.id)
-    if (logInStatus) {
+    if (props.id.auth ) {
+      if (props.id.type === null) {
       history.push("/UserAccount");
+    } else  {
+      history.push("/Admin");
     }
+  }
   return (
     <>
     <div >

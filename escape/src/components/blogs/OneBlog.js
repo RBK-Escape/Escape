@@ -1,6 +1,5 @@
 import React from "react";
 import moment from "moment";
-import reactHtmlParser from 'react-html-parser';
 
 function OneBlog(props) {
   console.log(props.blog)

@@ -1,24 +1,24 @@
 import React, { useState } from 'react';
 // import './App.css';
-import Store from './store.js';
+import Store from './components/store/store.js';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import Footer from './Footer.js';
+import Footer from './components/home/Footer.js';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
-import AboutUs from './aboutUs.js';
-import Navbar from './NavBar.js';
-import Home from './home.js'
-import Post from './Post.js';
-import Admin from './Admin.js';
-import Account from './Account.js';
-import Blogs from "./Blogs.js";
-import PostBlog from "./PostBlog.js"
-import AdminBlog from './AdminBlog.js';
-import Cart from './cart.js';
-import UserAccount from './UserAccount.js';
+import AboutUs from './components/aboutUs/aboutUs.js';
+import Navbar from './components/home/NavBar.js';
+import Home from './components/home/home.js'
+import Post from './components/userAccunt/Post.js';
+import Admin from './components/admin/Admin.js';
+import Account from './components/sigin/Account.js';
+import Blogs from "./components/blogs/Blogs.js";
+import PostBlog from "./components/blogs/PostBlog.js"
+import AdminBlog from './components/admin/AdminBlog.js';
+import Cart from './components/store/cart.js';
+import UserAccount from './components/userAccunt/UserAccount.js';
 import { CartProvider } from 'react-use-cart';
-import OneBlog from "./OneBlog.js";
-import ViewPost from './viewPost.js';
+import OneBlog from "./components/blogs/OneBlog.js";
+import ViewPost from './components/userAccunt/viewPost.js';
 
 function App() {
   const [blog, setBlog] = useState({});
@@ -26,7 +26,7 @@ function App() {
 
   console.log(blog)
 
-  const [id, setId] = useState({ id: '', auth: false });
+  const [id, setId] = useState({ id: '', auth: false, type: null});
   console.log("app.js", id)
 
   return (

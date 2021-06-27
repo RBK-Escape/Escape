@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import CarouselPage from './slideImage.js';
-import './store.css';
+import CarouselPage from '../cards/slideImage.js';
+import '../../store.css';
 // eslint-disable-next-line
 import Cart from './cart.js'
 
