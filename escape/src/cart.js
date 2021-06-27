@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useCart } from 'react-use-cart';
+import StripeCheckout from 'react-stripe-checkout';
+
 
 
 const Cart = (props) => {
@@ -30,6 +32,10 @@ const Cart = (props) => {
       console.log(result)
     }).catch((err) => { console.log(err); })
   }
+  
+  const handleToken = (token) => {
+    axios.post('http://localhost:3001/checkout', {token, items}).then((result)=> { console.log(result); });
+  };
 
   if (isEmpty) return (<div className="container w-100"><h1 className="container text-center w-100"> Your Cart is Empty <div className="container w-100"></div> </h1> </div>)
   return (
@@ -117,7 +123,17 @@ const Cart = (props) => {
                     <li class="d-flex justify-content-between py-3 border-bottom"><strong class="text-muted">Total</strong>
                       <h5 class="font-weight-bold">{cartTotal + 10} TDN</h5>
                     </li>
-                  </ul><a class="btn  btn-dark rounded-pill px-4 py-3 w-100">Procceed to checkout</a>
+                  </ul><div class="btn  btn-dark rounded-pill px-4 py-3 w-100">
+                    
+                  <StripeCheckout 
+                  stripeKey="pk_test_51J1vqqIjewuKal2UtGf8AihJr4TaRDefxP9u3kuYOjmBBhMiJwO1g6x5JDPL8SOQqgwC7xE6Da5IN8XAKtt5NCmE00U7DLx2v2" 
+                  token={handleToken}
+                  billingAddress
+                  shippingAddress
+                  amount={(cartTotal+10) * 100}
+                 
+                />
+                  </div>
                 </div>
               </div>
             </div>

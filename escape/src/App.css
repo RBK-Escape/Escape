@@ -45,6 +45,14 @@
 margin: auto;
 width: 60%;
 padding: 10px;
+position: relative;
+/* left: 25rem; */
+overflow: hidden;
+margin-top: 4rem;
+/* margin-bottom: 10rem; */
+width: 968px;
+max-width: 100%;
+min-height: 680px;
 
 }
 
