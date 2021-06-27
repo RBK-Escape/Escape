@@ -18,6 +18,11 @@ var cors = require("cors");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
 
+//payment
+// const stripe = require("stripe")("sk_test_51J6yJkJjdVstAFqK8Z5JxZPoYsfyQhfoRZmrfBcRpeA6WKmvw4N9YkpvuoQXvB16u95UdmKYusJnaCOytT7DyTMr003StYwZpo")
+// const uuid= require ("uuid/v4")
+
+
 app.use(cors());
 
 app.use(express.json({ limit: "50mb" }));
@@ -76,7 +81,7 @@ app.post("/api/postblog", async (req, res) => {
   } catch (error) {
     console.log(error);
   }
-  
+
 });
 
 ///////////////////////////////////////////////////////////
@@ -413,7 +418,48 @@ app.delete(`/EmptyCart/:userId`, (req, res) => {
   })
 })
 
+/// checkout 
+// app.post("/checkout", async(req, res)=>{
+//   console.log("Request", req.body)
 
+//   let error;
+//   let status;
+//   try{
+//     const{product, token}=req.body;
+//     const customer= await 
+//     stripe.customers.create({
+//       email: token.email,
+//       source: token.id
+//     });
+//     const indempotency_key = uuid();
+//     const charge = await stripe.charges.create(
+//       {
+//         amount: product.price * 100,
+//         currency: "dt",
+//         customer: customer.id,
+//         receipt_email: token.email,
+//         description : "Purchased from escape",
+//         shipping: {
+//           name: token.card.name,
+//           adress: {
+//             line1: token.card.adress,
+//             city:"Tunis",
+//             country: "Tunisia",
+//             postal_code: "1228"
+//           }
+//         }
+//       },
+//       {
+//         indempotency_key
+//       }
+//     );
+//     console.log("charge:" , {charge});
+//     status = "success";
+//   } catch (error) {
+//    console.log("error:", error)
+//     status = "failure"
+//   }
+// })
 
 
 

@@ -76,19 +76,20 @@ function PostBlog(props) {
         id="imageUrl"
         className="create-input"
         type="text"
-        placeholder="Photo"
+        placeholder="name"
         onChange={(event) => {
           setName(event.target.value);
         }}
       />
       <span>Share With Us Your Experience In this Area</span>
-      <input
+      <textarea
         id="body"
         className="create-body-textarea"
         type="text"
         placeholder="Description"
         onChange={(event) => {
           setDescription(event.target.value);
+          console.log(description)
         }}
       />
       <br></br>

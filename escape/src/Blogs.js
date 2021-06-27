@@ -26,7 +26,9 @@ const Blogs = (props) => {
         <ul>
           {blogs.map((blog) => {
             return (
+
               <li className="feed-list-item">
+                {console.log(blog)}
                 <h1
                   className="feed-list-item-title"
                   onClick={() => props.setBlog(blog)}
@@ -42,7 +44,7 @@ const Blogs = (props) => {
                   className="feed-list-item-image"
                   onClick={() => props.setBlog(blog)}
                 />
-                <p className="feed-list-item-lede" onClick={() => props.setBlog(blog)}>{blog.experience}</p>
+                <p className="feed-list-item-lede" onClick={() => props.setBlog(blog)}>{blog.experience.split("\n")[0]}...</p>
               </li>
             );
           })}
