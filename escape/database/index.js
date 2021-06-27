@@ -53,7 +53,7 @@ const postRent = function (data, val, callback) {
 };
 
 const postSell = function (data, val, callback) {
-  let query = "INSERT INTO equipments (category,name, description, etat,image,price,toRent,toSell,status,isRented,isSold,favorite, renter,userId) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)";
+  let query = "INSERT INTO equipments (category,name, description, etat,image,price,toRent,toSell,status,isRented,isSold,favorite, renter,userId) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
   db.query(query, [data.category, data.title, data.description, data.condition, val, data.price, null, true, "pending", false, false, false, null, data.id.id], callback)
 };
 
@@ -68,7 +68,6 @@ const postBlog = (data, callback) => {
     if (err) {
       console.log(err);
     } else {
-      // console.log("resullllltthefbzuduz", result);
       let query2 = "INSERT INTO blogs (place,image, experience, userId, name ,status) VALUES (?,?,?,?,?,?)";
       return db.query(query2, [data.place, data.image, data.description, data.id.id, result[0].fullName, "pending"], callback)
     }

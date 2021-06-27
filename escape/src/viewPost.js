@@ -22,7 +22,6 @@ const ViewPost = (props) => {
     const handledlete = (id) => {
         deletePost(id);
     }
-
   
 
     return (

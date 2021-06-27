@@ -60,8 +60,9 @@ function PostBlog(props) {
   };
 
   return (
-    <div className="create">
-      <span>Write The Place Name</span>
+    <div className="backGroud__container">
+    <div className="create-container">
+      <span className="postBlog__style">Write The Place Name</span>
       <input
         id="title"
         className="create-input"
@@ -71,17 +72,17 @@ function PostBlog(props) {
           setPlace(event.target.value);
         }}
       />
-      <span>Author name</span>
+      <span className="postBlog__style">Author name</span>
       <input
         id="imageUrl"
         className="create-input"
         type="text"
-        placeholder="name"
+        placeholder="Author name"
         onChange={(event) => {
           setName(event.target.value);
         }}
       />
-      <span>Share With Us Your Experience In this Area</span>
+      <span className="postBlog__style">Share With Us Your Experience In this Area</span>
       <textarea
         id="body"
         className="create-body-textarea"
@@ -103,6 +104,7 @@ function PostBlog(props) {
           value={fileInputState}
           className="form-input"
         />
+        <div>
         <button
           className="create-submit-button"
           onClick={() => {
@@ -118,10 +120,12 @@ function PostBlog(props) {
         >
           Post
         </button>
+        </div>
       </form>
       {previewSource && (
         <img src={previewSource} alt="chosen" style={{ height: "300px" }} />
       )}
+    </div>
     </div>
   );
 }
