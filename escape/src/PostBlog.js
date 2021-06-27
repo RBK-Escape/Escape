@@ -90,6 +90,7 @@ function PostBlog(props) {
         placeholder="Description"
         onChange={(event) => {
           setDescription(event.target.value);
+          console.log(description)
         }}
       />
       <br></br>

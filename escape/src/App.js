@@ -24,6 +24,8 @@ function App() {
   const [blog, setBlog] = useState({});
   //  const [addToCart, setCart] = useState([])
 
+  console.log(blog)
+
   const [id, setId] = useState({ id: '', auth: false });
   console.log("app.js", id)
 
@@ -44,7 +46,7 @@ function App() {
         <Route path="/UserAccount" component={() => <UserAccount id={id} />} />
         <Route path="/blog" component={() => <Blogs blog={blog} setBlog={setBlog} />} />
         <Route path="/oneblog" component={() => <OneBlog blog={blog} />} />
-        <Route path="/viewPost" component={() => <ViewPost id ={id}/>} />
+        <Route path="/viewPost" component={() => <ViewPost id={id} />} />
         <Footer />
       </CartProvider>
     </Router>

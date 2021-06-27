@@ -17,7 +17,7 @@ const port = process.env.PORT || 3001;
 var cors = require("cors");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
-const stripe = require ('stripe')('sk_test_51J1vqqIjewuKal2UQMO2GnNXUHsOpis3y9RzdOsonFTpOaZ8KSR6Sfwysof7IqAMvd6xI1XdKgYOLI3ppoM9lqt300HHdrcyFP');
+const stripe = require('stripe')('sk_test_51J1vqqIjewuKal2UQMO2GnNXUHsOpis3y9RzdOsonFTpOaZ8KSR6Sfwysof7IqAMvd6xI1XdKgYOLI3ppoM9lqt300HHdrcyFP');
 const uuid = require('uuid').v4
 app.use(cors());
 
@@ -77,7 +77,7 @@ app.post("/api/postblog", async (req, res) => {
   } catch (error) {
     console.log(error);
   }
-  
+
 });
 
 ///////////////////////////////////////////////////////////
@@ -293,7 +293,7 @@ app.get("/api/homeProducts", (req, res) => {
 });
 
 app.post("/api/postBlog", (req, res) => {
-console.log(req.body);
+  console.log(req.body);
   db.postBlog(req.body, (err, result) => {
     if (err) {
       console.log(err);
@@ -420,7 +420,6 @@ app.delete(`/EmptyCart/:userId`, (req, res) => {
 
 
 
-
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`);
 });
@@ -430,15 +429,15 @@ app.listen(port, () => {
 //for payment 
 app.post("/checkout", async (req, res) => {
   console.log("Request:", req.body);
-  let totalPrice =  0;
-  let name ="";
+  let totalPrice = 0;
+  let name = "";
   let error;
   let status;
   try {
     const { items, token } = req.body;
     items.map((item) => {
-      totalPrice+= item.price
-      name += ",  name:  " +item.name + " and id:  " + item.id;
+      totalPrice += item.price
+      name += ",  name:  " + item.name + " and id:  " + item.id;
     })
     totalPrice += 10;
     console.log(totalPrice)
@@ -450,7 +449,7 @@ app.post("/checkout", async (req, res) => {
     const idempotency_key = uuid();
     const charge = await stripe.charges.create(
       {
-        amount: totalPrice* 100,
+        amount: totalPrice * 100,
         currency: "usd",
         customer: customer.id,
         receipt_email: token.email,
