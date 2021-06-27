@@ -23,7 +23,7 @@ export default function CardsItem() {
               <img src={card.image} alt='camping' className="cards__item__img" />
              </figure>
              <div className="cards__item__info">
-                 <h5 className="cards__item__text">{card.experience}</h5>
+                 <h5 className="cards__item__text">{card.experience.split('\n')[0]} ...</h5>
              </div>
          </Link> 
           </li>
