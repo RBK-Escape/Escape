@@ -57,7 +57,7 @@ function AdminBlog() {
 
                 return <div className="AdminPost" >
                     {console.log(blog)}
-                    <img className="card-img-top" src={blog.image} alt="Card image" id="imagePreviewAdmin" />
+                    <img className="card-img-top" src={blog.image} alt="Card" id="imagePreviewAdmin" />
                     <div className="card-body">
 
                         <h5 className="card-title">Title: {blog.place}</h5>

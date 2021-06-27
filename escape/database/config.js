@@ -16,6 +16,7 @@ module.exports = (db) => {
       phoneNumber INT,
       adress VARCHAR(255),
       email VARCHAR(255) UNIQUE,
+      type VARCHAR(50),
       pocket INT 
     )`
     )

@@ -17,7 +17,8 @@ const port = process.env.PORT || 3001;
 var cors = require("cors");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
-
+const stripe = require ('stripe')('sk_test_51J1vqqIjewuKal2UQMO2GnNXUHsOpis3y9RzdOsonFTpOaZ8KSR6Sfwysof7IqAMvd6xI1XdKgYOLI3ppoM9lqt300HHdrcyFP');
+const uuid = require('uuid').v4
 app.use(cors());
 
 app.use(express.json({ limit: "50mb" }));
@@ -163,6 +164,7 @@ app.get("/api/viewpost/:id/:type", (req, res) => {
   if (type === "posts") {
     viewPostByUser(id).then((result) => {
       if (result[0].length > 0) {
+        console.log(result[0]);
         res.status(200).json(result[0])
       } else {
         res.status(200).json('You don"t have any post');
@@ -291,7 +293,7 @@ app.get("/api/homeProducts", (req, res) => {
 });
 
 app.post("/api/postBlog", (req, res) => {
-
+console.log(req.body);
   db.postBlog(req.body, (err, result) => {
     if (err) {
       console.log(err);
@@ -421,4 +423,59 @@ app.delete(`/EmptyCart/:userId`, (req, res) => {
 
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`);
+});
+
+
+
+//for payment 
+app.post("/checkout", async (req, res) => {
+  console.log("Request:", req.body);
+  let totalPrice =  0;
+  let name ="";
+  let error;
+  let status;
+  try {
+    const { items, token } = req.body;
+    items.map((item) => {
+      totalPrice+= item.price
+      name += ",  name:  " +item.name + " and id:  " + item.id;
+    })
+    totalPrice += 10;
+    console.log(totalPrice)
+    const customer = await stripe.customers.create({
+      email: token.email,
+      source: token.id
+    });
+
+    const idempotency_key = uuid();
+    const charge = await stripe.charges.create(
+      {
+        amount: totalPrice* 100,
+        currency: "usd",
+        customer: customer.id,
+        receipt_email: token.email,
+        description: `Purchased : ${name}`,
+        shipping: {
+          name: token.card.name,
+          address: {
+            line1: token.card.address_line1,
+            line2: token.card.address_line2,
+            city: token.card.address_city,
+            country: token.card.address_country,
+            postal_code: token.card.address_zip
+          }
+        }
+      },
+      {
+        idempotency_key
+      }
+    );
+    console.log("Charge:", { charge });
+    status = "success";
+  } catch (error) {
+    console.error("Error:", error);
+    status = "failure";
+  }
+
+  res.json({ error, status });
 });
