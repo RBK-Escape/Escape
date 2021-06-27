@@ -1,10 +1,13 @@
 import React from 'react';
-import './userAccount.css'
+import '../../userAccount.css'
 import {Link} from 'react-router-dom';
 import Post from './Post.js';
-import ViewPost from './viewPost.js';
+// import ViewPost from './viewPost.js';
+import { useHistory } from "react-router-dom";
+
 
 function UserAccount(props) {
+  let history = useHistory();
 
 if(!props.id.auth) {
     
@@ -23,7 +26,7 @@ if(!props.id.auth) {
   <div className="container">
     <div className="collapse navbar-collapse" id="navbarButtonsExample">
       <ul className="navbar-nav me-auto mb-2 mb-lg-0 marg sm">
-       <p classNameName="nav-item "> Always Have an ESCAPE plan</p>
+       <div><i className="fa fa-sign-out" onClick={()=> history.go(0)}></i>Log out</div> 
       </ul>
       <div className="d-flex align-items-center marg">
         <Link to ='/post' >

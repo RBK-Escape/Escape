@@ -1,8 +1,8 @@
 import React from 'react';
-import Signin from "../src/components/Signin";
-import Signup from "../src/components/Signup";
+import Signin from "./Signin.js";
+import Signup from "./Signup.js";
 
-import './components/auth.css';
+import '../../auth.css';
 
 
 const Account = (props) => {

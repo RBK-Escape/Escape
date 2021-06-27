@@ -41,6 +41,12 @@
   }
 }
 
+.button__admin {
+  border: 1px solid #FF4B2B;
+	background-color: #FF4B2B;
+	color: #FFFFFF;
+	font-size: 12px;
+}
 .post{
 margin: auto;
 width: 60%;

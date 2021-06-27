@@ -2,8 +2,8 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import moment from "moment";
 import { Link } from "react-router-dom";
-import OneBlog from "./OneBlog";
-import "./blogs.css";
+import OneBlog from "./OneBlog.js";
+import "../../blogs.css";
 
 const Blogs = (props) => {
   const [blog, setBlog] = useState({});

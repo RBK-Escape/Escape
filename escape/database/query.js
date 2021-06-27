@@ -4,15 +4,15 @@ const { db } = require('./index.js');
 // query to fetch element for the store.js component
 //////////////////////////////////////////////////////////
 const getAllEquipments = () => {
-    return db.queryAsync('select * from equipments where status = "accepted" ')
+    return db.queryAsync('select * from equipments where status = "accepted" ORDER BY id DESC ')
 }
 
 const getEquipmentsToRent = () => {
-    return db.queryAsync('select * from equipments where toRent=1 and status = "accepted" ')
+    return db.queryAsync('select * from equipments where toRent=1 and status = "accepted" ORDER BY id DESC')
 }
 
 const getEquipmentsToBuy = () => {
-    return db.queryAsync('select * from equipments where toSell=1 and status = "accepted"')
+    return db.queryAsync('select * from equipments where toSell=1 and status = "accepted" ORDER BY id DESC')
 }
 
 const getEquipmentByPriceInc = (type) => {
@@ -36,10 +36,13 @@ const removeItemFromCart = (id) =>{
     }
 }
 
+
+///// three blog post in home page
 const getThreeRandomBlogs = () => {
     return db.queryAsync('SELECT * FROM blogs AS r1 JOIN (SELECT CEIL(RAND() * (SELECT MAX(id) FROM blogs)) AS id) AS r2 WHERE r1.id >= r2.id ORDER BY r1.id ASC LIMIT 3')
 }
 
+//// for the user Account 
 const viewPostByUser = (id) => {
     return db.queryAsync(`SELECT * FROM equipments WHERE userId='${id}' ORDER BY id DESC`)
 }

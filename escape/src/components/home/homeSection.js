@@ -1,6 +1,7 @@
 import React from 'react';
-import './homeSection.css';
+import '../../homeSection.css';
 import {Link} from 'react-router-dom';
+
 const HomeSection = () => {
  return (
      <div className="hero-container">

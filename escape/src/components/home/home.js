@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 // eslint-disable-next-line
 import { NavLink, Link } from "react-router-dom";
 import HomeSection from './homeSection.js';
-import Cards from './cards.js'
+import Cards from '../cards/cards.js'
 
 const Home = ()  => {
     // eslint-disable-next-line

@@ -263,7 +263,7 @@ app.post('/signin', (req, res) => {
           const token = jwt.sign({ id }, "jwtSecret", {
             expiresIn: 6000
           })
-          res.json({ auth: true, token, id: result[0].userID })
+          res.json({ auth: true, token, id: result[0].userID, type: result[0].type })
         } else {
           res.send({ message: "Wrong password", auth: false })
         }
@@ -277,11 +277,7 @@ app.post('/signin', (req, res) => {
 
 
 
-// app.get("/api/homeProducts", (req, res) => {
-//   db.homeProducts(function (err, result) {
-//     if (err) {
-//       res.send(err);
-//     }
+
 app.get("/api/homeProducts", (req, res) => {
   db.homeProducts(function (err, result) {
     if (err) {
@@ -382,7 +378,7 @@ app.delete("/admin/blog/delete/:id", (req, res) => {
   });
 });
 
-///// InCart
+///// InCart sever side
 app.post('/inCart', (req, res) => {
   db.InCart(req.body, function (err, result) {
     if (err) {
@@ -416,16 +412,6 @@ app.delete(`/EmptyCart/:userId`, (req, res) => {
 })
 
 
-
-
-
-
-app.listen(port, () => {
-  console.log(`Example app listening at http://localhost:${port}`);
-});
-
-
-
 //for payment 
 app.post("/checkout", async (req, res) => {
   console.log("Request:", req.body);
@@ -437,7 +423,7 @@ app.post("/checkout", async (req, res) => {
     const { items, token } = req.body;
     items.map((item) => {
       totalPrice += item.price
-      name += ",  name:  " + item.name + " and id:  " + item.id;
+      name += ",  equipment's Name :  " + item.name + " and id:  " + item.id;
     })
     totalPrice += 10;
     console.log(totalPrice)
@@ -477,4 +463,8 @@ app.post("/checkout", async (req, res) => {
   }
 
   res.json({ error, status });
+});
+
+app.listen(port, () => {
+  console.log(`Example app listening at http://localhost:${port}`);
 });

@@ -40,27 +40,27 @@ const Cart = (props) => {
   if (isEmpty) return (<div className="container w-100"><h1 className="container text-center w-100"> Your Cart is Empty <div className="container w-100"></div> </h1> </div>)
   return (
     <>
-      <div class="px-4 px-lg-0">
+      <div className="px-4 px-lg-0">
         <div >
-          <div class="container">
-            <p class="lead py-5 text-center">Shopping Cart ({totalUniqueItems})</p>
-            <div class="row">
-              <div class="col-lg-12 p-5 bg-white rounded shadow-sm mb-5 ">
-                <div class="table-responsive">
-                  <table class="table">
+          <div className="container">
+            <p className="lead py-5 text-center">Shopping Cart ({totalUniqueItems})</p>
+            <div className="row">
+              <div className="col-lg-12 p-5 bg-white rounded shadow-sm mb-5 ">
+                <div className="table-responsive">
+                  <table className="table">
                     <thead>
                       <tr>
-                        <th scope="col" class="border-0 bg-light">
-                          <div class="p-2 px-3 text-uppercase">Product</div>
+                        <th scope="col" className="border-0 bg-light">
+                          <div className="p-2 px-3 text-uppercase">Product</div>
                         </th>
-                        <th scope="col" class="border-0 bg-light">
-                          <div class="py-2 text-uppercase">Price</div>
+                        <th scope="col" className="border-0 bg-light">
+                          <div className="py-2 text-uppercase">Price</div>
                         </th>
-                        <th scope="col" class="border-0 bg-light">
-                          <div class="py-2 text-uppercase">Status</div>
+                        <th scope="col" className="border-0 bg-light">
+                          <div className="py-2 text-uppercase">Status</div>
                         </th>
-                        <th scope="col" class="border-0 bg-light">
-                          <div class="py-2 text-uppercase">Remove</div>
+                        <th scope="col" className="border-0 bg-light">
+                          <div className="py-2 text-uppercase">Remove</div>
                         </th>
                       </tr>
                     </thead>
@@ -68,20 +68,20 @@ const Cart = (props) => {
                       {items.map((item) => {
                         return (
                           <tr>
-                            <th scope="row" class="border-0">
-                              <div class="p-2">
-                                <div class="ml-3 d-inline-block align-middle">
-                                  <h5 class="mb-0"> <a href="#" class="text-dark d-inline-block align-middle text-capitalize">{item.name}</a></h5><span class="text-muted font-weight-normal font-italic d-block">Category: {item.category}</span>
+                            <th scope="row" className="border-0">
+                              <div className="p-2">
+                                <div className="ml-3 d-inline-block align-middle">
+                                  <h5 className="mb-0"> <a href="#" className="text-dark d-inline-block align-middle text-capitalize">{item.name}</a></h5><span className="text-muted font-weight-normal font-italic d-block">Category: {item.category}</span>
                                 </div>
                               </div>
                             </th>
-                            <td class="border-0 align-middle"><strong>{item.price} TDN</strong></td>
-                            <td class="border-0 align-middle"><strong>{item.toRent ? 'Rent' : 'Buy'}</strong></td>
-                            <td class="border-0 align-middle"><a class="text-dark" onClick={() => {
+                            <td className="border-0 align-middle"><strong>{item.price} TDN</strong></td>
+                            <td className="border-0 align-middle"><strong>{item.toRent ? 'Rent' : 'Buy'}</strong></td>
+                            <td className="border-0 align-middle"><a className="text-dark" onClick={() => {
                               OutCart(item.id)
                               console.log(item.id)
                               removeItem(item.id); setId(item.id)
-                            }}><i class="fa fa-trash"></i></a></td>
+                            }}><i className="fa fa-trash"></i></a></td>
                           </tr>
                         )
                       })}
@@ -89,7 +89,7 @@ const Cart = (props) => {
                   </table>
                 </div>
                 <div className="d-flex justify-content-between">
-                  <td className="justify-content-between"></td>
+                  <td classNameNa="justify-content-between"></td>
                   <td>
                     <button className="btn btn-dark rounded-pill py-2 " onClick={() => {
                       console.log(EmptyCart, "hererererere")
@@ -123,7 +123,7 @@ const Cart = (props) => {
                     <li class="d-flex justify-content-between py-3 border-bottom"><strong class="text-muted">Total</strong>
                       <h5 class="font-weight-bold">{cartTotal + 10} TDN</h5>
                     </li>
-                  </ul><div class="btn  btn-dark rounded-pill px-4 py-3 w-100">
+                  </ul><div >
                     
                   <StripeCheckout 
                   stripeKey="pk_test_51J1vqqIjewuKal2UtGf8AihJr4TaRDefxP9u3kuYOjmBBhMiJwO1g6x5JDPL8SOQqgwC7xE6Da5IN8XAKtt5NCmE00U7DLx2v2" 
